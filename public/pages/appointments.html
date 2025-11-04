@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/public/assets/CSS/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+            <div class="container">
+                <a class="navbar-brand fw-bold text-primary" href="#">
+                    <i class="bi bi-hospital me-2"></i>MediCare
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/public/index.html">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/public/pages/doctors.html">Médecins</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/public/pages/appointments.html">Rendez-vous</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/public/pages/healthbacktrack.html">Suivi Santé</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex align-items-center">
+                        <div class="input-group me-3" style="width: 250px;">
+                            <input type="text" id="searchInput" class="form-control" placeholder="Rechercher...">
+                            <button class="btn btn-outline-primary" type="button">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                        <div class="theme-toggle" id="themeToggle">
+                            <i class="bi bi-sun-fill"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="intro">
+            <div class="left-side">
+                <img src="../assets/images/doctor2.png" alt="doctor image" loading="lazy">
+            </div>
+            <div class="right-side">
+                <h1>BIENVENUE SUR MEDICARE.</h1>
+                <p>Notre clinique met la santé et le bien-être de nos patients au cœur de ses priorités.
+                    Nous offrons des soins médicaux complets, assurés par une équipe de professionnels qualifiés et à
+                    l’écoute.
+                    Grâce à des équipements modernes et une approche centrée sur la confiance,
+                    nous garantissons un accompagnement personnalisé pour chaque patient, du diagnostic au traitement.
+                </p>
+            </div>
+        </section>
+        <section id="appointments" class="page-section d-none">
+            <div class="container py-5">
+                <h1 class="mb-5 text-center fw-bold">
+                    <i class="bi bi-calendar-heart text-primary me-3"></i>Prendre un Rendez-vous
+                </h1>
+
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="card shadow-lg border-0 h-100">
+                            <div class="card-header bg-gradient text-white py-3"
+                                style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                <h5 class="card-title mb-0 d-flex align-items-center">
+                                    <i class="bi bi-calendar-check fs-4 me-2"></i>
+                                    <span>Formulaire de rendez-vous</span>
+                                </h5>
+                            </div>
+                            <div class="card-body p-4">
+                                <form id="appointmentForm" class="needs-validation" novalidate>
+                                    <div class="mb-4">
+                                        <label for="patientName" class="form-label fw-semibold text-dark">
+                                            <i class="bi bi-person-fill text-primary me-2"></i>Nom complet
+                                        </label>
+                                        <input type="text" class="form-control form-control-lg border-2"
+                                            id="patientName" placeholder="Entrez votre nom complet" required>
+                                        <div class="invalid-feedback">
+                                            <i class="bi bi-exclamation-circle-fill me-1"></i>Veuillez entrer votre nom
+                                            complet.
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="patientEmail" class="form-label fw-semibold text-dark">
+                                            <i class="bi bi-envelope-fill text-primary me-2"></i>Email
+                                        </label>
+                                        <input type="email" class="form-control form-control-lg border-2"
+                                            id="patientEmail" placeholder="exemple@email.com" required>
+                                        <div class="invalid-feedback">
+                                            <i class="bi bi-exclamation-circle-fill me-1"></i>Veuillez entrer une
+                                            adresse email valide.
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 mb-4">
+                                        <div class="col-md-6">
+                                            <label for="appointmentDate" class="form-label fw-semibold text-dark">
+                                                <i class="bi bi-calendar3 text-primary me-2"></i>Date
+                                            </label>
+                                            <input type="date" class="form-control form-control-lg border-2"
+                                                id="appointmentDate" required>
+                                            <div class="invalid-feedback">
+                                                <i class="bi bi-exclamation-circle-fill me-1"></i>Date requise.
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="appointmentTime" class="form-label fw-semibold text-dark">
+                                                <i class="bi bi-clock-fill text-primary me-2"></i>Heure
+                                            </label>
+                                            <input type="time" class="form-control form-control-lg border-2"
+                                                id="appointmentTime" required>
+                                            <div class="invalid-feedback">
+                                                <i class="bi bi-exclamation-circle-fill me-1"></i>Heure requise.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="appointmentDoctor" class="form-label fw-semibold text-dark">
+                                            <i class="bi bi-person-badge-fill text-primary me-2"></i>Médecin
+                                        </label>
+                                        <select class="form-select form-select-lg border-2" id="appointmentDoctor"
+                                            required>
+                                            <option value="">Sélectionnez un médecin</option>
+                                            <!-- Les médecins seront chargés dynamiquement ici -->
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            <i class="bi bi-exclamation-circle-fill me-1"></i>Veuillez sélectionner un
+                                            médecin.
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="appointmentReason" class="form-label fw-semibold text-dark">
+                                            <i class="bi bi-chat-left-text-fill text-primary me-2"></i>Motif de la
+                                            consultation
+                                        </label>
+                                        <textarea class="form-control border-2" id="appointmentReason" rows="4"
+                                            placeholder="Décrivez brièvement le motif de votre consultation..."></textarea>
+                                        <small class="form-text text-muted mt-1 d-block">
+                                            <i class="bi bi-info-circle me-1"></i>Optionnel
+                                        </small>
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <button type="submit" class="btn btn-lg btn-primary shadow-sm"
+                                            style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">
+                                            <i class="bi bi-check-circle-fill me-2"></i>Confirmer le rendez-vous
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card shadow-lg border-0 h-100">
+                            <div class="card-header bg-light py-3 border-bottom">
+                                <h5 class="card-title mb-0 d-flex align-items-center text-dark">
+                                    <i class="bi bi-list-check fs-4 me-2 text-primary"></i>
+                                    <span>Mes rendez-vous</span>
+                                </h5>
+                            </div>
+                            <div class="card-body p-4" style="max-height: 700px; overflow-y: auto;">
+                                <div id="appointmentsList">
+                                    <div class="text-center py-5 text-muted">
+                                        <i class="bi bi-calendar-x fs-1 d-block mb-3"></i>
+                                        <p class="mb-0">Aucun rendez-vous pour le moment</p>
+                                        <small>Vos rendez-vous apparaîtront ici</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <address class="text-white">
+                        <i class="bi bi-geo-alt"></i> 123 Rue des FAR, Nador<br>
+                        <i class="bi bi-telephone"></i>+212 523-547876<br>
+                        <i class="bi bi-envelope"></i> contact@medicare.ma
+                    </address>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p>&copy; 2025 MediCare. Tous droits réservés.</p>
+                <p>Votre santé, notre priorité.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="/public/assets/JS/shared.js"></script>
+    <script src="/public/assets/JS/appointments.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
