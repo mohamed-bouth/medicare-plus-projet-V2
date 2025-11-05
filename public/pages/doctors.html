@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/public/assets/CSS/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+            <div class="container">
+                <a class="navbar-brand fw-bold text-primary" href="#">
+                    <i class="bi bi-hospital me-2"></i>MediCare
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/public/index.html">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/public/pages/doctors.html">Médecins</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/public/pages/appointments.html">Rendez-vous</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/public/pages/healthbacktrack.html">Suivi Santé</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex align-items-center">
+                        <div class="input-group me-3" style="width: 250px;">
+                            <input type="text" id="searchInput" class="form-control" placeholder="Rechercher...">
+                            <button class="btn btn-outline-primary" type="button">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                        <div class="theme-toggle" id="themeToggle">
+                            <i class="bi bi-sun-fill"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="intro">
+            <div class="left-side">
+                <img src="../assets/images/doctor2.png" alt="doctor image" loading="lazy">
+            </div>
+            <div class="right-side">
+                <h1>BIENVENUE SUR MEDICARE.</h1>
+                <p>Notre clinique met la santé et le bien-être de nos patients au cœur de ses priorités.
+                    Nous offrons des soins médicaux complets, assurés par une équipe de professionnels qualifiés et à
+                    l’écoute.
+                    Grâce à des équipements modernes et une approche centrée sur la confiance,
+                    nous garantissons un accompagnement personnalisé pour chaque patient, du diagnostic au traitement.
+                </p>
+            </div>
+        </section>
+        <section id="doctors" class="page-section d-none">
+            <div class="d-flex justify-content-around align-items-center mb-4" style="margin: 2em;">
+                <h1>Nos Médecins</h1>
+                <div class="d-flex align-items-center">
+                    <select id="specialtyFilter" class="form-select me-2" style="width: auto;">
+                        <option value="all">Toutes les spécialités</option>
+                        <option value="cardiologue">Cardiologie</option>
+                        <option value="dermatologue">Dermatologie</option>
+                        <option value="pediatre">Pédiatrie</option>
+                        <option value="generaliste">Médecine générale</option>
+                        <option value="ophtalmologue">Ophtalmologie</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row" id="doctorsList">
+                <!-- La Liste des medecins. -->
+            </div>
+        </section>
+        <section class="rendez-vous" id="rendez-vous">
+
+        </section>
+
+    </main>
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <address class="text-white">
+                        <i class="bi bi-geo-alt"></i> 123 Rue des FAR, Nador<br>
+                        <i class="bi bi-telephone"></i>+212 523-547876<br>
+                        <i class="bi bi-envelope"></i> contact@medicare.ma
+                    </address>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p>&copy; 2025 MediCare. Tous droits réservés.</p>
+                <p>Votre santé, notre priorité.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="/public/assets/JS/shared.js"></script>
+    <script src="/public/assets/JS/doctors.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

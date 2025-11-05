@@ -1,0 +1,50 @@
+{
+    "doctor1": {
+        "id": 1,
+        "name": "Dr. Ahmed ben Alam",
+        "specialty": "cardiologue",
+        "image": "../assets/images/doctor2.png",
+        "available": true,
+        "description": "Cardiologue expérimenté avec plus de 15 ans d'expérience."
+    },
+    "doctor2": {
+        "id": 1,
+        "name": "Dr. Ahmed ben Alam",
+        "specialty": "cardiologue",
+        "image": "../assets/images/doctor2.png",
+        "available": true,
+        "description": "Cardiologue expérimenté avec plus de 15 ans d'expérience."
+    },
+    "doctor3": {
+        "id": 1,
+        "name": "Dr. Ahmed ben Alam",
+        "specialty": "cardiologue",
+        "image": "../assets/images/doctor2.png",
+        "available": true,
+        "description": "Cardiologue expérimenté avec plus de 15 ans d'expérience."
+    },
+    "doctor4": {
+        "id": 1,
+        "name": "Dr. Ahmed ben Alam",
+        "specialty": "cardiologue",
+        "image": "../assets/images/doctor2.png",
+        "available": true,
+        "description": "Cardiologue expérimenté avec plus de 15 ans d'expérience."
+    },
+    "doctor5": {
+        "id": 1,
+        "name": "Dr. Ahmed ben Alam",
+        "specialty": "cardiologue",
+        "image": "../assets/images/doctor2.png",
+        "available": true,
+        "description": "Cardiologue expérimenté avec plus de 15 ans d'expérience."
+    },
+    "doctor6": {
+        "id": 1,
+        "name": "Dr. Ahmed ben Alam",
+        "specialty": "cardiologue",
+        "image": "../assets/images/doctor2.png",
+        "available": true,
+        "description": "Cardiologue expérimenté avec plus de 15 ans d'expérience."
+    }
+}
