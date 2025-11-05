@@ -11,23 +11,41 @@
 
 <body>
 
-        <main class="bg-primary">
-        <div class="container row">
-            <h1>Gestion des Specialités</h1>
-            <button class="btn-ajouter">ajouter une specialité</a>
-                <!-- les card speciality -->
-                <div class="list-speciality">
-                    <p>cardiologue</p>
-                    <button class="btn-edit">modifier</button>
-                    <button class="btn-delete">Supprimer</button>
-                </div>
-                <!-- add une card speciality -->
-                <form class="add-card">
-                    <input type="text" placeholder="Nom de specialité">
-                    <button class="btn-">Enregistrer</button>
-                </form>
+    <div class="container">
+        <h1>Gestion des Spécialités</h1>
+
+        <div class="actions">
+            <button id="addBtn">➕ Ajouter une spécialité</button>
         </div>
-    </main>
+
+        <div id="messageBox"></div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nom de la spécialité</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="specialtyTable">
+                <tr>
+                    <td>1</td>
+                    <td>Cardiologue</td>
+                    <td>
+                        <button class="edit">Modifier</button>
+                        <button class="delete">Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <form id="specialtyForm">
+            <input type="text" id="specialtyName" placeholder="Nom de la spécialité" required>
+            <button type="submit">Enregistrer</button>
+        </form>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
