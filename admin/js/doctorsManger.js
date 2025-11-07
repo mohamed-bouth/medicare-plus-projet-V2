@@ -7,9 +7,13 @@ const descriptionInput = document.getElementById("descriptionInput")
 const submitBtn = document.getElementById("submitBtn")
 const ajouterbtn = document.getElementById("ajouterbtn")
 const formdoctor = document.getElementById("formdoctor")
+const diponiblebtn = document.getElementById("diponiblebtn")
+const diponiblefalse = document.getElementById("diponiblefalse")
+const diponibletrue = document.getElementById("diponibletrue")
 
+let doctors = JSON.parse(localStorage.getItem("doctors")) || []
 
-const doctorsInformation = []
+let doctorsInformation = doctors
 
 const specialty = [
     "general",
@@ -25,6 +29,13 @@ specialty.forEach(element => {
     specialtyInput.appendChild(specialt)
 });
 
+function resetform() {
+    nameinput.value = ""
+    specialtyInput.value = "Choisissez une spécialisation"
+    descriptionInput.value = ""
+}
+
+let transid = null
 
 function rendercard() {
     cardsContainer.innerHTML = ""
@@ -100,9 +111,98 @@ function rendercard() {
         cardContainer.appendChild(btnContainer)
         btnContainer.appendChild(editbtn)
         btnContainer.appendChild(dltbtn)
+
+        dltbtn.addEventListener("click", () => {
+            let id = doctor.id
+            console.log(doctor.id)
+            doctorsInformation = doctorsInformation.filter(doctor => doctor.id !== id)
+            localStorage.setItem("doctors", JSON.stringify(doctorsInformation));
+            rendercard();
+            console.log(doctorsInformation)
+        })
+
+        editbtn.addEventListener("click", () => {
+            formdoctor.style.display = "block"
+            ajoutestate = true
+            console.log(doctor)
+            function rendercardagain() {
+                diponiblebtnFlage = doctor.diponible
+                if (diponiblebtnFlage === true) {
+                    diponiblefalse.style = "height: 18px; width: 198px; top: 0; left: -200px;"
+                    diponibletrue.style = "height: 18px; width: 198px; top: 0; left: 0"
+
+                } else {
+                    diponiblefalse.style = "height: 18px; width: 198px; top: 0; left: 0"
+                    diponibletrue.style = "height: 18px; width: 198px; top: 0; left: 200px"
+                }
+                nameinput.value = doctor.name
+                specialtyInput.value = doctor.specialty
+                descriptionInput.value = doctor.description
+                transid = doctor.id
+            }
+            rendercardagain()
+        })
     });
 
 }
+
+rendercard()
+
+let trans = false
+
+let transedit
+
+let ajoutestate = false
+
+ajouterbtn.addEventListener("click", () => {
+    resetform()
+    console.log("click")
+    if (ajoutestate === false) {
+        formdoctor.style.display = "block"
+        ajoutestate = true
+    } else {
+        formdoctor.style.display = "none"
+        ajoutestate = false
+    }
+    let diponiblebtnFlage = false
+    diponiblefalse.style = "height: 18px; width: 198px; top: 0; left: 0"
+    diponibletrue.style = "height: 18px; width: 198px; top: 0; left: 200px"
+    diponiblebtn.addEventListener("click", () => {
+        console.log("click work")
+        if (!transid) {
+            if (diponiblebtnFlage === false) {
+                diponiblefalse.style = "height: 18px; width: 198px; top: 0; left: -200px;"
+                diponibletrue.style = "height: 18px; width: 198px; top: 0; left: 0"
+                diponiblebtnFlage = true
+                trans = diponiblebtnFlage
+            } else {
+                diponiblefalse.style = "height: 18px; width: 198px; top: 0; left: 0"
+                diponibletrue.style = "height: 18px; width: 198px; top: 0; left: 200px"
+                diponiblebtnFlage = false
+                trans = diponiblebtnFlage
+            }
+        } else {
+            doctorsInformation.forEach(doc => {
+                if (doc.id === transid) {
+                    transedit = doc.diponible
+                    if (diponiblebtnFlage === false) {
+                        diponiblefalse.style = "height: 18px; width: 198px; top: 0; left: -200px;"
+                        diponibletrue.style = "height: 18px; width: 198px; top: 0; left: 0"
+                        diponiblebtnFlage = true
+                        transedit = diponiblebtnFlage
+                    } else {
+                        diponiblefalse.style = "height: 18px; width: 198px; top: 0; left: 0"
+                        diponibletrue.style = "height: 18px; width: 198px; top: 0; left: 200px"
+                        diponiblebtnFlage = false
+                        transedit = diponiblebtnFlage
+                    }
+                }
+            });
+
+        }
+    })
+
+})
 
 function addcard() {
     nameValue = nameinput.value
@@ -116,29 +216,43 @@ function addcard() {
         id: Date.now(),
         name: nameValue,
         specialty: specialtyValue,
+        diponible: trans,
         description: descriptionValue,
     }
     doctorsInformation.push(doctor)
     console.log(doctorsInformation)
+    localStorage.setItem("doctors", JSON.stringify(doctorsInformation));
+    formdoctor.style.display = "none"
+    ajoutestate = false
 }
-let ajoutestate = false
-ajouterbtn.addEventListener("click", () => {
-    if(ajoutestate === false){
-        formdoctor.style.display = "block"
-        ajoutestate = true
-    }else{
-        formdoctor.style.display = "none"
-        ajoutestate = false
-    }
-    
-    
-})
+
+
 
 submitBtn.addEventListener("click", (e) => {
+    if (!transid) {
         e.preventDefault()
         addcard()
         rendercard()
+    } else {
+        e.preventDefault()
+        doctorsInformation.forEach(doc => {
+            if (doc.id === transid) {
+                doc.name = nameinput.value
+                doc.specialty = specialtyInput.value
+                doc.description = descriptionInput.value
+                doc.diponible = transedit
+                    console.log(doctorsInformation)
+
+            }
+        });
+        resetform()
+        rendercard()
         formdoctor.style.display = "none"
-        
-    })
+        ajoutestate = false
+        transid = null
+    }
+
+})
+
+
 

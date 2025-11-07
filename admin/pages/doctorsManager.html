@@ -11,36 +11,49 @@
 
 <body>
   <section class="d-flex w-100 border border-dark">
-    <div id="formdoctor" style="left: 10%; top: 10%; display: none;" class="border align-self-center rounded-4 shadow-lg p-3 w-50 position-absolute bg-white">
-        <p class="fs-3 text-primary text-center">formulaire ajouter un médecin</p>
-        <form>
-          <div class="d-flex w-100 gap-4  flex-column">
+    <div id="formdoctor" style="left: 10%; top: 10%; display: none;"
+      class="border align-self-center rounded-4 shadow-lg p-3 w-50 position-absolute bg-white">
+      <p class="fs-3 text-primary text-center">formulaire ajouter un médecin</p>
+      <form>
+        <div class="d-flex w-100 gap-4  flex-column">
+          <div class="d-flex justify-content-evenly">
             <img style="width: 100px; height: 100px;" class="border rounded-circle" alt="image"
               src="/admin/images/mdi_doctor.png">
-            <div class="d-flex flex-column justify-content-center gap-4">
-              <label class="btn btn-primary" for="photoInput">Envoyer une photo</label>
-              <input type="file" id="photoInput" name="photo" accept="image/*" hidden>
+            <div>
+              <p class="fw-bold">Veuillez sélectionner la disponibilité du médecin</p>
+              <div id="diponiblebtn" style="width: 200px; height: 20px; cursor: pointer;" class="border border-dark rounded-4 position-relative d-flex align-items-center overflow-hidden">
+                <div id="diponiblefalse" style="width: 198px; top: 0; left: 0; height: 18px;" class="position-absolute bg-danger text-white text-nowrap d-flex justify-content-center align-items-center"> none disponible</div>
+                <div id="diponibletrue" style="width: 198px; top: 0; left: 200px; height: 18px;" class="position-absolute bg-success text-white text-nowrap d-flex justify-content-center align-items-center">disponible</div>
+              </div>
             </div>
           </div>
-          <div style="height: 300px;" class="d-flex flex-column justify-content-evenly">
-            <div class="d-flex flex-column">
-              <label class="fw-bold text-nowrap">Nom et Prenom</label>
-              <input id="nameinput" style="outline: none; height: 40px;" class="w-100 rounded-3 border border-dark-subtle" type="text">
-            </div>
-            <div class="d-flex flex-column">
-              <p class="fw-bold">Spécialisation</p>
-              <select id="specialtyinput" style="outline: none; height: 40px;" class="w-100 ms-auto rounded-3 border border-dark-subtle">
-                <option>Choisissez une spécialisation</option>
-              </select>
-            </div>
-            <div class="d-flex flex-column">
-              <label class="fw-bold">decription</label>
-              <input id="descriptionInput" style="height: 80px; outline: none;" class=" w-100 ms-auto rounded-3 border border-dark-subtle" type="text">
-            </div>
+          <div class="d-flex flex-column justify-content-center gap-4">
+            <label class="btn btn-primary" for="photoInput">Envoyer une photo</label>
+            <input type="file" id="photoInput" name="photo" accept="image/*" hidden>
           </div>
-          <button id="submitBtn" class="btn btn-primary">submit</button>
-        </form>
-      </div>
+        </div>
+        <div style="height: 300px;" class="d-flex flex-column justify-content-evenly">
+          <div class="d-flex flex-column">
+            <label class="fw-bold text-nowrap">Nom et Prenom</label>
+            <input id="nameinput" style="outline: none; height: 40px;" class="w-100 rounded-3 border border-dark-subtle"
+              type="text">
+          </div>
+          <div class="d-flex flex-column">
+            <p class="fw-bold">Spécialisation</p>
+            <select id="specialtyinput" style="outline: none; height: 40px;"
+              class="w-100 ms-auto rounded-3 border border-dark-subtle">
+              <option>Choisissez une spécialisation</option>
+            </select>
+          </div>
+          <div class="d-flex flex-column">
+            <label class="fw-bold">decription</label>
+            <input id="descriptionInput" style="height: 80px; outline: none;"
+              class=" w-100 ms-auto rounded-3 border border-dark-subtle" type="text">
+          </div>
+        </div>
+        <button id="submitBtn" class="btn btn-primary">submit</button>
+      </form>
+    </div>
     <div id="cardsContainer" class=" w-75 d-flex justify-content-evenly flex-wrap my-4">
     </div>
     <div style="background-color: #569AFF; height: auto;" class=" w-25 ">
@@ -112,7 +125,8 @@
           </div>
           <div class="w-25 d-flex flex-column gap-2 p-2">
             <img src="/admin/images/mdi_alert.png" alt="alert">
-            <button id="ajouterbtn" style="background-color: #569AFF;" class="text-white border rounded-3 p-2">Ajouter</button>
+            <button id="ajouterbtn" style="background-color: #569AFF;"
+              class="text-white border rounded-3 p-2">Ajouter</button>
           </div>
         </div>
       </div>
