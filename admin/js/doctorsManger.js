@@ -1,6 +1,5 @@
 
 const cardsContainer = document.getElementById("cardsContainer")
-
 const nameinput = document.getElementById("nameinput")
 const specialtyInput = document.getElementById("specialtyinput")
 const descriptionInput = document.getElementById("descriptionInput")
@@ -21,18 +20,26 @@ const section = document.getElementById("section")
 
 
 
+
+
 let doctors = JSON.parse(localStorage.getItem("doctors")) || []
 
 let doctorsInformation = doctors
 
-const specialty = [
-    "general",
-    "Dermatologue",
-    "Ophtalmologue",
-    "Cardiologue",
-    "ORL"
-]
 
+let specialty = []
+
+let spi = localStorage.getItem("speciality")
+
+if (spi) {
+    spi = JSON.parse(spi)
+
+    spi.forEach(element => {
+        specialty.push(element.name)
+    })
+}
+
+console.log(specialty)
 
 
 specialty.forEach(element => {
