@@ -3,7 +3,14 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeSearch();
 });
 
-function initializeDoctorsPage() {
+async function initializeDoctorsPage() {
+    await loadData();
+
+    if (!loadedData) {
+        console.error("Impossible de charger les données");
+        return;
+    }
+
     const specialtyFilter = document.getElementById('specialtyFilter');
     const doctorsList = document.getElementById('doctorsList');
 
@@ -23,15 +30,18 @@ function initializeDoctorsPage() {
 }
 
 function renderDoctors() {
+
+    if (!loadedData) return;
+
     const doctorsList = document.getElementById('doctorsList');
     if (!doctorsList) return;
 
     const specialtyFilter = document.getElementById('specialtyFilter');
     const selectedSpecialty = specialtyFilter ? specialtyFilter.value : 'all';
 
-    let filteredDoctors = doctorsData;
+    let filteredDoctors = loadedData;
     if (selectedSpecialty !== 'all') {
-        filteredDoctors = doctorsData.filter(doctor => doctor.specialty === selectedSpecialty);
+        filteredDoctors = loadedData.filter(doctor => doctor.specialty === selectedSpecialty);
     }
     doctorsList.innerHTML = '';
 

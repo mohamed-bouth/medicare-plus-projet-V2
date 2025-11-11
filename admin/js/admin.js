@@ -1,7 +1,7 @@
 let loadedData = null;
 async function loadData() {
     try {
-        const response = await fetch('/admin/data/user.json');
+        const response = await fetch('/admin/data/admin.json');
         loadedData = await response.json();
     } catch (error) {
         console.error("Error loiding json data.", error);
@@ -85,7 +85,7 @@ async function loginAuthentification() {
         }
         createSession(username);
         checkSession();
-        window.location.href = 'https://github.com/AmineDevF/MediCare-/blob/main/MediCare%20+%20V2%20%E2%80%93%20Espace%20Back-Office.md';
+        window.location.href = '/admin/pages/appointementsManager.html';
     });
 }
 loginAuthentification();

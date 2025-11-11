@@ -1,50 +1,50 @@
-{
-    "doctor1": {
-        "id": 1,
-        "name": "Dr. Ahmed ben Alam",
-        "specialty": "cardiologue",
+[
+    {
+        "id": "1",
+        "name": "Dr. Reda Ben Alam",
+        "specialty": "Cardiologue",
         "image": "../assets/images/doctor2.png",
         "available": true,
-        "description": "Cardiologue expérimenté avec plus de 15 ans d'expérience."
+        "description": "Cardiologue expérimenté avec plus de 15 ans d'expérience dans le traitement des maladies cardiaques complexes."
     },
-    "doctor2": {
-        "id": 1,
-        "name": "Dr. Ahmed ben Alam",
-        "specialty": "cardiologue",
-        "image": "../assets/images/doctor2.png",
-        "available": true,
-        "description": "Cardiologue expérimenté avec plus de 15 ans d'expérience."
+    {
+        "id": "2",
+        "name": "Dr. Sara El Mansouri",
+        "specialty": "Dermatologue",
+        "image": "../assets/images/doctor.png",
+        "available": false,
+        "description": "Spécialiste en dermatologie esthétique et médicale, passionnée par les soins de la peau et la prévention."
     },
-    "doctor3": {
-        "id": 1,
-        "name": "Dr. Ahmed ben Alam",
-        "specialty": "cardiologue",
-        "image": "../assets/images/doctor2.png",
+    {
+        "id": "3",
+        "name": "Dr. Youssef Haddad",
+        "specialty": "Pédiatre",
+        "image": "../assets/images/doctor3.png",
         "available": true,
-        "description": "Cardiologue expérimenté avec plus de 15 ans d'expérience."
+        "description": "Pédiatre attentif et bienveillant, dédié à la santé et au bien-être des enfants depuis plus de 10 ans."
     },
-    "doctor4": {
-        "id": 1,
-        "name": "Dr. Ahmed ben Alam",
-        "specialty": "cardiologue",
-        "image": "../assets/images/doctor2.png",
+    {
+        "id": "4",
+        "name": "Dr. Leila Rahmani",
+        "specialty": "Gynécologue",
+        "image": "../assets/images/doctor4.png",
         "available": true,
-        "description": "Cardiologue expérimenté avec plus de 15 ans d'expérience."
+        "description": "Gynécologue réputée pour son approche humaine et son expertise en suivi de grossesse et santé féminine."
     },
-    "doctor5": {
-        "id": 1,
-        "name": "Dr. Ahmed ben Alam",
-        "specialty": "cardiologue",
-        "image": "../assets/images/doctor2.png",
-        "available": true,
-        "description": "Cardiologue expérimenté avec plus de 15 ans d'expérience."
+    {
+        "id": "5",
+        "name": "Dr. Rachid El Fassi",
+        "specialty": "Neurologue",
+        "image": "../assets/images/doctor5.png",
+        "available": false,
+        "description": "Neurologue spécialisé dans les troubles du sommeil et les maladies neurodégénératives."
     },
-    "doctor6": {
-        "id": 1,
-        "name": "Dr. Ahmed ben Alam",
-        "specialty": "cardiologue",
-        "image": "../assets/images/doctor2.png",
+    {
+        "id": "6",
+        "name": "Dr. Imane Azzouz",
+        "specialty": "Dentiste",
+        "image": "../assets/images/Jean.png",
         "available": true,
-        "description": "Cardiologue expérimenté avec plus de 15 ans d'expérience."
+        "description": "Dentiste méticuleuse, experte en soins esthétiques et en implantologie dentaire."
     }
-}
+]
