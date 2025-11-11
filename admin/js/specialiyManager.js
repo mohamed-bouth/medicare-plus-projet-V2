@@ -83,10 +83,10 @@ specialityForm.addEventListener('submit', (e) => {
         <td>${newSpeciality.description}</td>
         <td class="d-flex flex-row">
             <button class="btn btn-sm">
-                <img src="/public/assets/images/delete-icon.png" style="width: 20px;" alt="">
+                <img src="/admin/image/delete-icon.png" style="width: 20px;" alt="">
             </button>
             <button class="btn btn-sm">
-                <img src="/public/assets/images/pencil-icon.png" style="width:20px;" alt="">
+                <img src="/admin/image/pencil-icon.png" style="width:20px;" alt="">
             </button>
         </td>
     `;
@@ -111,10 +111,10 @@ function loadData() {
  
                             <td class="d-flex flex-row">
                                 <button class="btn btn-sm">
-                                    <img src="/public/assets/images/delete-icon.png" style="width: 20px;" alt="">
+                                    <img src="/admin/image/delete-icon.png" style="width: 20px;" alt="">
                                 </button>
                                 <button class="btn btn-sm">
-                                    <img src="/public/assets/images/pencil-icon.png" style="width:20px;" alt="">
+                                    <img src="/admin/image/pencil-icon.png" style="width:20px;" alt="">
                                 </button>
                             </td>`;
 
