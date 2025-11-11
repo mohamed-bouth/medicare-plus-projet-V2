@@ -334,6 +334,13 @@ function addcard() {
         specialty: specialtyValue,
         diponible: trans,
         description: descriptionValue,
+        days: {
+           Lundi: false,
+           Mardi: false,
+           Mercredi: false,
+           Jeudi: false,
+           Vendredi: false,
+        }
     }
     doctorsInformation.push(doctor)
     console.log(doctorsInformation)
