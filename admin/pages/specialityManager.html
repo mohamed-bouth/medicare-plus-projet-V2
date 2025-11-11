@@ -11,17 +11,17 @@
 
 <body>
 
-    <div class="container">
-        <h1>Gestion des Spécialités</h1>
+    <div class="container d-flex flex-column align-items-center justify-content-center">
+        <h1 class="text-primary">Gestion des Spécialités</h1>
 
-        <div class="actions">
-            <button id="addBtn">➕ Ajouter une spécialité</button>
+        <div class="d-flex justify-content-start w-100 my-3 text-start">
+            <button id="addBtn" class="btn btn-primary p-3 border rounded-3 ">➕ Ajouter une spécialité</button>
         </div>
 
-        <div id="messageBox"></div>
+        <div id="messageBox" ></div>
 
-        <table>
-            <thead>
+        <table class="table w-75">
+            <thead class="table-success">
                 <tr>
                     <th>#</th>
                     <th>Nom de la spécialité</th>
@@ -29,20 +29,28 @@
                 </tr>
             </thead>
             <tbody id="specialtyTable">
-                <tr>
+                <tr m>
                     <td>1</td>
                     <td>Cardiologue</td>
                     <td>
-                        <button class="edit">Modifier</button>
-                        <button class="delete">Supprimer</button>
+                        <button class="edit bg-warning mx-2  py-1 px-2 border rounded-3">Modifier</button>
+                        <button class="delete bg-danger mx-2  py-1 px-2 border rounded-3">Supprimer</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>psycologie</td>
+                    <td>
+                        <button class="edit bg-warning mx-2 py-1 px-2 border rounded-3">Modifier</button>
+                        <button class="delete bg-danger mx-2 py-1 px-2 border rounded-3">Supprimer</button>
                     </td>
                 </tr>
             </tbody>
         </table>
 
-        <form id="specialtyForm">
-            <input type="text" id="specialtyName" placeholder="Nom de la spécialité" required>
-            <button type="submit">Enregistrer</button>
+        <form id="specialtyForm" class="d-flex w-75 justify-content-start gap-4">
+            <input type="text" id="specialtyName" placeholder="Nom de la spécialité" class="py-2 px-4 w-50 rounded-3" required>
+            <button type="submit" class="bg-primary py-2 px-2 border rounded-3 ">Enregistrer</button>
         </form>
     </div>
 
