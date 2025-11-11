@@ -1,13 +1,108 @@
-.my-sidebar {
-  width: 280px;
-}
-.logo{
-width:40px ;
-height:32px
-}
-.space{
-   padding-bottom:100%;
-}
-.name{
-    color: #1F2394;
+    /*----------sidebar style-------------*/
+    .my-sidebar {
+        width: 280px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        overflow-y: auto;
+        z-index: 100; 
+    }
+
+    .main-content {
+        margin-left: 280px;
+        padding: 20px;
+    }
+
+    @media (max-width: 992px) {
+        .my-burger {
+            display: none;
+        }
+
+        .my-sidebar {
+            width: 80px;
+        }
+
+        .main-content {
+            margin-left: 70px;
+        }
+        
+        .dropdown-menu {
+            display: none;
+        }
+        .nav{
+            margin-left:-0.3rem;
+        }
+    }
+
+    .logo {
+        width: 40px;
+        height: 32px
+    }
+
+    .name {
+        color: #1F2394;
+    }
+
+    .nav-link {
+        color: #131552;
+    }
+
+    .nav-link:hover {
+        color: grey;
+    }
+
+    .profil-section {
+        position: relative;
+    }
+
+    .dropdown-menu {
+        display: none;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 8px;
+        margin-top: 5px;
+        position: absolute;
+        top: -5rem;
+        left: 6.3rem;
+    }
+
+    .dropdown-item {
+        display: block;
+        padding: 6px 12px;
+        text-decoration: none;
+        color: black;
+        border-radius: 4px;
+    }
+
+    /* speciality page */
+    .fw-semibold {
+        color: #1F2394;   
+    }
+    .custom-modal {
+   
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+   
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+.custom-modal-content {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+   
+  #addSpecialityModal {
+    display: none; 
+    justify-content: center;
+    align-items: center;
 }
