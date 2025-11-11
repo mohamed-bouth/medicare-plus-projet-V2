@@ -1,7 +1,6 @@
 const toggle = document.getElementById("profileToggle");
 const dropdownMenu = document.getElementById("dropdownMenu");
-const cancelBtn = document.getElementById('cancelBtn');
-const addBtn = document.getElementById('ajoute');
+
 dropdownMenu.classList.toggle('show');
 
 
@@ -29,20 +28,17 @@ const localstoragebtn = document.querySelector(".localstorage")
 function addSpeciality() {
     openModalBtn.addEventListener('click', () => {
         addSpecialityModal.style.display = 'flex';
-        // Réafficher les boutons
-        addBtn.style.display = "inline-block";
-        cancelBtn.style.display = "inline-block";
-    });
+    })
     closeModalBtn.addEventListener('click', () => {
-        closeModal()
-    });
+       closeModal()
+    })
 }
 
-function addArrayToLocalStorage() {
+function addArrayToLocalStorage(){
     localStorage.setItem("docteur", JSON.stringify(array));
 }
 
-localstoragebtn.addEventListener("click", addArrayToLocalStorage)
+localstoragebtn.addEventListener("click",addArrayToLocalStorage)
 
 
 
@@ -59,7 +55,7 @@ const specialityTableBody = document.getElementById('specialityTableBody');
 let speciality = []
 let = specialityStorage = []
 
-specialityStorage = localStorage.getItem("speciality");
+ specialityStorage = localStorage.getItem("speciality");
 if (specialityStorage) {
     speciality = JSON.parse(specialityStorage);
 }
@@ -87,10 +83,10 @@ specialityForm.addEventListener('submit', (e) => {
         <td>${newSpeciality.description}</td>
         <td class="d-flex flex-row">
             <button class="btn btn-sm">
-                <img class="d-flex flex-row" src="/admin/image/delete-icon.png" style="width: 20px;" alt="">
+                <img src="/public/assets/images/delete-icon.png" style="width: 20px;" alt="">
             </button>
             <button class="btn btn-sm">
-                <img src="/admin/image/pencil-icon.png" style="width:20px;" alt="">
+                <img src="/public/assets/images/pencil-icon.png" style="width:20px;" alt="">
             </button>
         </td>
     `;
@@ -99,22 +95,11 @@ specialityForm.addEventListener('submit', (e) => {
     specialityForm.reset();
 
     closeModal();
-    addBtn.style.display = "none";
-    cancelBtn.style.display = "none";
 });
 
-function closeModal() {
-    addSpecialityModal.style.display = 'none';
+function closeModal(){
+ addSpecialityModal.style.display = 'none';
 }
-cancelBtn.addEventListener('click', () => {
-
-    closeModal();
-
-
-    addBtn.style.display = "none";
-    cancelBtn.style.display = "none";
-});
-
 
 function loadData() {
     speciality.forEach((sp) => {
@@ -126,10 +111,10 @@ function loadData() {
  
                             <td class="d-flex flex-row">
                                 <button class="btn btn-sm">
-                                    <img src="/admin/image/delete-icon.png" style="width: 20px;" alt="">
+                                    <img src="/public/assets/images/delete-icon.png" style="width: 20px;" alt="">
                                 </button>
                                 <button class="btn btn-sm">
-                                    <img src="/admin/image/pencil-icon.png" style="width:20px;" alt="">
+                                    <img src="/public/assets/images/pencil-icon.png" style="width:20px;" alt="">
                                 </button>
                             </td>`;
 
@@ -144,4 +129,4 @@ function loadData() {
 }
 
 
-loadData()
+    loadData()

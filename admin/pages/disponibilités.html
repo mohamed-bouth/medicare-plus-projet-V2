@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MediCare</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body class="bg-light">
+  <div class="container my-5 d-flex flex-column justify-content-center align-items-center">
+    <div class="w-100  shadow p-4 rounded-3">
+      <h1 class="text-primary text-center fs-1 mb-3">Gestion des disponibilités des médecins</h1>
+      <p class="text-secondary text-center fs-5 mb-4">
+        Sélectionnez un médecin et définissez ses jours de travail. <br>
+        Les changements seront visibles immédiatement.
+      </p>
+
+      <div class="mb-4 text-center">
+        <select id="selectMedcin" class="form-select w-50 mx-auto">
+          <option value="" selected disabled hidden>Choisir un médecin</option>
+          <option value="med1">Dr. Ahmed Bouthandousste</option>
+          <option value="med2">Dr. Youssef</option>
+          <option value="med3">Dr. Hajar</option>
+        </select>
+      </div>
+
+      <div id="jour" class="d-flex flex-wrap justify-content-center gap-3 fs-5 mb-4">
+        <label class="form-check-label"><input type="checkbox" class="form-check-input me-2">Lundi</label>
+        <label class="form-check-label"><input type="checkbox" class="form-check-input me-2">Mardi</label>
+        <label class="form-check-label"><input type="checkbox" class="form-check-input me-2">Mercredi</label>
+        <label class="form-check-label"><input type="checkbox" class="form-check-input me-2">Jeudi</label>
+        <label class="form-check-label"><input type="checkbox" class="form-check-input me-2">Vendredi</label>
+        <label class="form-check-label"><input type="checkbox" class="form-check-input me-2">Samedi</label>
+        <label class="form-check-label"><input type="checkbox" class="form-check-input me-2">Dimanche</label>
+      </div>
+
+      <div class="text-center">
+        <button class="btn btn-primary px-4 py-2 fw-semibold">Sauvegarder les disponibilités</button>
+      </div>
+
+      <div class="bg-success-subtle text-success text-center mt-4 p-2 rounded-3 border border-success d-none"
+        id="successMsg">
+        Disponibilités mises à jour
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+    <script src="/admin/js/disponibilité.js">
+      
+    </script>
+</body>
+
+</html>
