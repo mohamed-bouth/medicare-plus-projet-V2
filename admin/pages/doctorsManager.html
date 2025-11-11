@@ -10,8 +10,8 @@
 </head>
 
 <body>
-  <section class="d-flex w-100 border border-dark">
-    <div id="formdoctor" style="left: 10%; top: 10%; display: none;"
+  <section id="section" class="d-flex w-100">
+    <div id="formdoctor" style="left: 10%; top: 10%; display: none; pointer-events: auto;"
       class="border align-self-center rounded-4 shadow-lg p-3 w-50 position-absolute bg-white">
       <p class="fs-3 text-primary text-center">formulaire ajouter un médecin</p>
       <form>
@@ -61,13 +61,13 @@
       <div class="d-flex flex-column gap-4 w-100 align-items-center my-4">
         <form style="width: 90%; height: 40px; border-radius: 10px;"
           class="d-flex flex-nowrap border border-dark-subtle">
-          <input type="text" style="border-radius: 8px;" class="w-75 border-0 rounded-end-0 text-center fs-4"
+          <input id="cherche" type="text" style="border-radius: 8px;" class="w-75 border-0 rounded-end-0 text-center fs-4"
             placeholder="Rechercher">
           <button style="border-radius: 8px;" class="w-25 border-0 rounded-start-0">
             <img src="/admin/images/ri_search-line.png" alt="ch">
           </button>
         </form>
-        <select style="width: 90%; height: 40px; border-radius: 10px; "
+        <select id="option2" style="width: 90%; height: 40px; border-radius: 10px; "
           class="border border-dark-subtle text-center fs-4 text-secondary">
           <option value="tout">toutes les specialtes</option>
         </select>
@@ -76,19 +76,19 @@
         <div style="width: 180px; height: 150px;" class="bg-white border border-dark-subtle rounded-4">
           <p class="w-100 text-center fs-5 my-2">Totale doctores</p>
           <div class="w-100 d-flex justify-content-center align-items-center gap-3">
-            <img src="/admin/images/mdi_doctor.png" alt="emoji">
+            <img src="/admin/images/Vector1.png" alt="emoji">
             <div>
-              <p class="fs-2 fw-semibold m-0">25</p>
+              <p id="toutdoctor" class="fs-2 fw-semibold m-0">0</p>
               <p class="fs-5 m-0">doctor</p>
             </div>
           </div>
         </div>
         <div style="width: 180px; height: 150px;" class="bg-white border border-dark-subtle rounded-4">
-          <p class="w-100 text-center fs-5 my-2">Totale doctores</p>
+          <p class="w-100 text-center fs-6 my-2">doctores disponibles</p>
           <div class="w-100 d-flex justify-content-center align-items-center gap-3">
-            <img src="/admin/images/mdi_doctor.png" alt="emoji">
+            <img src="/admin/images/Vector.png" alt="emoji">
             <div>
-              <p class="fs-2 fw-semibold m-0">25</p>
+              <p id="toutdiponible" class="fs-2 fw-semibold m-0">0</p>
               <p class="fs-5 m-0">doctor</p>
             </div>
           </div>
@@ -96,22 +96,22 @@
       </div>
       <div class="d-flex gap-2 justify-content-center mt-2 flex-wrap">
         <div style="width: 180px; height: 150px;" class="bg-white border border-dark-subtle rounded-4">
-          <p class="w-100 text-center fs-5 my-2">Totale doctores</p>
+          <p class="w-100 text-center fs-5 my-2"> spécialisations</p>
           <div class="w-100 d-flex justify-content-center align-items-center gap-3">
-            <img src="/admin/images/mdi_doctor.png" alt="emoji">
+            <img src="/admin/images/vaadin_specialist.png" alt="emoji">
             <div>
-              <p class="fs-2 fw-semibold m-0">25</p>
-              <p class="fs-5 m-0">doctor</p>
+              <p id="toutspicale" class="fs-2 fw-semibold m-0">0</p>
+              <p class="fs-5 m-0">speciale</p>
             </div>
           </div>
         </div>
         <div style="width: 180px; height: 150px;" class="bg-white border border-dark-subtle rounded-4">
-          <p class="w-100 text-center fs-5 my-2">Totale doctores</p>
+          <p class="w-100 text-center fs-5 my-2">les rondez vous</p>
           <div class="w-100 d-flex justify-content-center align-items-center gap-3">
-            <img src="/admin/images/mdi_doctor.png" alt="emoji">
+            <img src="/admin/images/lets-icons_date-fill.png" alt="emoji">
             <div>
-              <p class="fs-2 fw-semibold m-0">25</p>
-              <p class="fs-5 m-0">doctor</p>
+              <p class="fs-2 fw-semibold m-0">0</p>
+              <p class="fs-5 m-0">rondez</p>
             </div>
           </div>
         </div>
