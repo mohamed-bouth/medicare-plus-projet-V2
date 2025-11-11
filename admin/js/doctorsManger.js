@@ -15,10 +15,42 @@ const toutdoctor = document.getElementById("toutdoctor")
 const toutdiponible = document.getElementById("toutdiponible")
 const toutspicale = document.getElementById("toutspicale")
 const section = document.getElementById("section")
+const doctorsidebar = document.getElementById("doctorSideBar")
+const toggle = document.getElementById("profileToggle");
+const dropdownMenu = document.getElementById("dropdownMenu");
+const doctorSidebarBtn = document.getElementById("doctorSidebarBtn")
+
+
+let clickOrNo = false
+doctorsidebar.style.left = "99%"
+
+doctorSidebarBtn.addEventListener("click" , () => {
+    if(clickOrNo === false){
+        doctorsidebar.style.left = "auto"
+        clickOrNo = true
+        console.log("work")
+    }else{
+        doctorsidebar.style.left = "99%"
+        clickOrNo = false
+        console.log("work")
+    }
+})
+
+
+
+dropdownMenu.classList.toggle('show');
 
 
 
 
+function toggleMenu() {
+    dropdownMenu.classList.toggle('show');
+}
+
+profileToggle.addEventListener('click', function (event) {
+    event.preventDefault();
+    toggleMenu();
+});
 
 
 
@@ -140,7 +172,7 @@ function rendercard() {
     cardsContainer.innerHTML = ""
     doctorsInformation.forEach(doctor => {
         const cardContainer = document.createElement("div")
-        cardContainer.className = "border border-dark rounded-3"
+        cardContainer.className = "border border-gray rounded-3 my-2 bg-body-tertiary mx-2"
         cardContainer.style = "width: 300px; height: 225px;"
 
         const uperContainer = document.createElement("div")
@@ -387,7 +419,7 @@ submitBtn.addEventListener("click", (e) => {
 
 function rendercardByfilter(doctor) {
     const cardContainer = document.createElement("div");
-    cardContainer.className = "border border-dark rounded-3";
+    cardContainer.className = "border border-gray rounded-3 my-2 bg-body-tertiary";
     cardContainer.style = "width: 300px; height: 225px;";
 
     const uperContainer = document.createElement("div");

@@ -1,7 +1,15 @@
+let doctors = JSON.parse(localStorage.getItem("doctors")) || []
+
+doctorsData = doctors
+
+console.log(doctors)
+
 document.addEventListener('DOMContentLoaded', function () {
     initializeAppointmentsPage();
     initializeSearch();
 });
+
+const appointmentForm = document.getElementById('appointmentForm');
 
 function initializeAppointmentsPage() {
     const appointmentForm = document.getElementById('appointmentForm');
@@ -94,14 +102,15 @@ function validateFieldById(fieldId) {
     return isValid;
 }
 
-function updateDoctorsSelect() {
+async function updateDoctorsSelect() {
+    await loadData();
     const select = document.getElementById('appointmentDoctor');
     if (!select) return;
 
     while (select.children.length > 1) {
         select.removeChild(select.lastChild);
     }
-    doctorsData.forEach(doctor => {
+    loadedData.forEach(doctor => {
         if (doctor.available) {
             const option = document.createElement('option');
             option.value = doctor.id;
@@ -119,7 +128,8 @@ function addAppointment() {
     const appointmentDoctor = parseInt(document.getElementById('appointmentDoctor').value);
     const appointmentReason = document.getElementById('appointmentReason').value;
 
-    const doctor = doctorsData.find(d => d.id === appointmentDoctor);
+    const doctorId = document.getElementById('appointmentDoctor').value;
+    const doctor = loadedData.find(d => d.id === doctorId);
 
     const newAppointment = {
         id: Date.now(),
@@ -141,7 +151,7 @@ function addAppointment() {
         field.classList.remove('is-valid');
     });
 
-    alert('Votre Rendez-vous est pris avec succès!');
+    // alert('Votre Rendez-vous est pris avec succès!');
 }
 
 function renderAppointments() {
@@ -234,6 +244,8 @@ function initializeSearch() {
     });
 }
 
+const appointmentItems = document.querySelectorAll('.appointment-item');
+
 function filterAppointments(searchTerm) {
     const appointmentItems = document.querySelectorAll('.appointment-item');
 
@@ -251,3 +263,31 @@ function filterAppointments(searchTerm) {
         }
     });
 }
+
+const patientName = document.getElementById('patientName');
+const patientEmail = document.getElementById('patientEmail');
+const appointmentDate = document.getElementById('appointmentDate');
+const appointmentTime = document.getElementById('appointmentTime');
+const appointmentDoctor = document.getElementById('appointmentDoctor');
+
+let newFormData = JSON.parse(localStorage.getItem('appointments')) || [];
+
+appointmentForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const appointment = {
+        id: Date.now(),
+        patientName: patientName.value,
+        patientEmail: patientEmail.value,
+        appointmentDate: appointmentDate.value,
+        appointmentTime: appointmentTime.value,
+        appointmentDoctor: appointmentDoctor.options[appointmentDoctor.selectedIndex].text,
+        appointmentStatus: 'pending',
+        dateCreation: new Date().toISOString()
+    };
+
+    newFormData.push(appointment);
+    localStorage.setItem('appointments', JSON.stringify(newFormData));
+
+    alert('Rendez-vous enregistré avec succès !');
+});
