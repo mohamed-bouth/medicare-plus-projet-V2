@@ -1,11 +1,11 @@
 let btn = document.querySelector(".btn");
 let successMsg = document.getElementById("successMsg")
 let selectMedcin = document.getElementById("selectMedcin")
-let checkboxes = document.querySelectorAll(#jour input[type='checkbox'])
+let checkboxes = document.querySelectorAll("#jour input[type='checkbox']")
 
 btn.addEventListener("click", function () {     
     let medcin = selectMedcin.value;
-    let jours = false ;
+    let joursChoisi = false ;
 
     if (medcin === "") {
         successMsg.textContent = "Veuillez choisir un médecin !";
@@ -14,11 +14,11 @@ btn.addEventListener("click", function () {
         successMsg.classList.add("bg-warning")
     } else if (checkboxes.forEach(function (checkbox) {
         if (checkboxes.checkbox) {
-            jours=true
+            joursChoisi=true
         }
         successMsg.textContent = ""
     })) {
-        
+
     } else {
         successMsg.classList.remove("d-none");
         successMsg.classList.remove("bg-warning")
