@@ -1,235 +1,346 @@
-let loadedDoctors = null;
-let appointments = [];
-let allAppointments = [];
+// Éléments du DOM
+const cardsContainer = document.getElementById("cardsContainer");
+const nameinput = document.getElementById("nameinput");
+const specialtyInput = document.getElementById("specialtyinput");
+const descriptionInput = document.getElementById("descriptionInput");
+const submitBtn = document.getElementById("submitBtn");
+const ajouterbtn = document.getElementById("ajouterbtn");
+const formdoctor = document.getElementById("formdoctor");
+const diponiblebtn = document.getElementById("diponiblebtn");
+const diponiblefalse = document.getElementById("diponiblefalse");
+const diponibletrue = document.getElementById("diponibletrue");
+const checheBar = document.getElementById("cherche");
+const sidebarOption = document.getElementById("option2");
+const toutdoctor = document.getElementById("toutdoctor");
+const toutdiponible = document.getElementById("toutdiponible");
+const toutspicale = document.getElementById("toutspicale");
+const section = document.getElementById("section");
+const doctorsidebar = document.getElementById("doctorSideBar");
+const toggle = document.getElementById("profileToggle");
+const dropdownMenu = document.getElementById("dropdownMenu");
+const doctorSidebarBtn = document.getElementById("doctorSidebarBtn");
+const photoInput = document.getElementById("photoInput");
 
-window.addEventListener('DOMContentLoaded', () => {
-    loadDoctors();
-    loadAppointments();
-});
+let doctors = JSON.parse(localStorage.getItem("doctors")) || [];
+let doctorsInformation = doctors;
+let specialty = [];
+let transid = null;
+let diponiblebtnFlage = false;
+let ajoutestate = false;
+let clickOrNo = false;
 
-async function loadData() {
-    try {
-        const response = await fetch('/admin/data/doctors.json');
-        loadedDoctors = await response.json();
-    } catch (error) {
-        console.error("Error loading json data.", error);
-    }
+initializePage();
+
+function initializePage() {
+    loadSpecialties();
+    renderStatistique();
+    rendercard();
+    initializeSidebar();
+    initializeDropdown();
+    initializeEventListeners();
 }
 
-const filterDoctor = document.getElementById('filterDoctor');
+function initializeSidebar() {
+    doctorsidebar.style.left = "99%";
 
-async function loadDoctors(){
-    await loadData();
-    loadedDoctors.forEach((doctor) => {
-        const option = document.createElement('option');
-        option.innerText = doctor.name;
-        option.value = doctor.name;
-        filterDoctor.appendChild(option);
+    doctorSidebarBtn.addEventListener("click", () => {
+        if (clickOrNo === false) {
+            doctorsidebar.style.left = "auto";
+            clickOrNo = true;
+        } else {
+            doctorsidebar.style.left = "99%";
+            clickOrNo = false;
+        }
     });
 }
 
-function loadAppointments() {
-    allAppointments = JSON.parse(localStorage.getItem('appointments')) || [];
-    appointments = [...allAppointments];
-    renderAppointments();
-    updateStats();
+function initializeDropdown() {
+    toggle.addEventListener('click', function (event) {
+        event.preventDefault();
+        dropdownMenu.classList.toggle('show');
+    });
 }
 
-function renderAppointments() {
-    const appointmentsList = document.getElementById('appointmentsList');
-    const appointmentCount = document.getElementById('appointmentCount');
-
-    appointmentsList.innerHTML = '';
-
-    if (appointments.length === 0) {
-        const alert = document.createElement('div');
-        alert.className = 'alert alert-info text-center';
-        const icon = document.createElement('i');
-        icon.className = 'fas fa-info-circle';
-        alert.appendChild(icon);
-        alert.appendChild(document.createTextNode(' Aucun rendez-vous enregistré dans le système.'));
-        appointmentsList.appendChild(alert);
-        appointmentCount.textContent = '0';
-        return;
+function loadSpecialties() {
+    let spi = localStorage.getItem("speciality");
+    
+    if (spi) {
+        spi = JSON.parse(spi);
+        specialty = spi.map(element => element.name);
+    }
+    while (specialtyInput.options.length > 1) {
+        specialtyInput.remove(1);
     }
 
-    appointmentCount.textContent = appointments.length;
+    specialty.forEach(element => {
+        const option = document.createElement("option");
+        option.textContent = element;
+        option.value = element;
+        specialtyInput.appendChild(option);
+    });
+    while (sidebarOption.options.length > 1) {
+        sidebarOption.remove(1);
+    }
 
-    const tableContainer = document.createElement('div');
-    tableContainer.className = 'table-responsive';
+    specialty.forEach(element => {
+        const option = document.createElement("option");
+        option.textContent = element;
+        option.value = element;
+        sidebarOption.appendChild(option);
+    });
+}
 
-    const table = document.createElement('table');
-    table.className = 'table table-hover align-middle';
+function renderStatistique() {
+    toutdoctor.textContent = doctorsInformation.length;
+    
+    const disponibles = doctorsInformation.filter(doc => doc.diponible === true).length;
+    toutdiponible.textContent = disponibles;
+    
+    toutspicale.textContent = specialty.length;
+}
 
-    const thead = document.createElement('thead');
-    thead.className = 'table-light';
-    thead.innerHTML = `
-        <tr>
-            <th><i class="fas fa-user me-1"></i>Patient</th>
-            <th><i class="fas fa-envelope me-1"></i>Email</th>
-            <th><i class="fas fa-user-md me-1"></i>Médecin</th>
-            <th><i class="fas fa-calendar me-1"></i>Date</th>
-            <th><i class="fas fa-clock me-1"></i>Heure</th>
-            <th><i class="fas fa-info-circle me-1"></i>Statut</th>
-            <th class="text-center">Actions</th>
-        </tr>
+function resetform() {
+    nameinput.value = "";
+    specialtyInput.value = "Choisissez une spécialisation";
+    descriptionInput.value = "";
+    diponiblebtnFlage = false;
+    diponiblefalse.style = "height: 18px; width: 198px; top: 0; left: 0";
+    diponibletrue.style = "height: 18px; width: 198px; top: 0; left: 200px";
+}
+
+function deleteAlert() {
+    return new Promise((resolve) => {
+        const alertContainer = document.createElement("div");
+        alertContainer.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        `;
+
+        const box = document.createElement("div");
+        box.style.cssText = `
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        `;
+
+        const message = document.createElement("p");
+        message.textContent = "Voulez-vous supprimer ce médecin ?";
+        message.style.cssText = "font-size: 18px; margin-bottom: 20px;";
+
+        const yesBtn = document.createElement("button");
+        yesBtn.textContent = "Oui";
+        yesBtn.className = "btn btn-danger";
+        yesBtn.style.margin = "5px";
+
+        const noBtn = document.createElement("button");
+        noBtn.textContent = "Non";
+        noBtn.className = "btn btn-secondary";
+        noBtn.style.margin = "5px";
+
+        box.appendChild(message);
+        box.appendChild(yesBtn);
+        box.appendChild(noBtn);
+        alertContainer.appendChild(box);
+        document.body.appendChild(alertContainer);
+
+        yesBtn.onclick = () => {
+            document.body.removeChild(alertContainer);
+            resolve(true);
+        };
+
+        noBtn.onclick = () => {
+            document.body.removeChild(alertContainer);
+            resolve(false);
+        };
+    });
+}
+
+function rendercard() {
+    cardsContainer.innerHTML = "";
+    
+    doctorsInformation.forEach(doctor => {
+        const card = createDoctorCard(doctor);
+        cardsContainer.appendChild(card);
+    });
+
+    renderStatistique();
+}
+
+function createDoctorCard(doctor) {
+    const cardContainer = document.createElement("div");
+    cardContainer.className = "border border-gray rounded-3 my-2 bg-body-tertiary mx-2";
+    cardContainer.style = "width: 300px; height: 225px;";
+
+    const disponibleClass = doctor.diponible ? "bg-success" : "bg-danger";
+    const disponibleText = doctor.diponible ? "disponible" : "non disponible";
+
+    cardContainer.innerHTML = `
+        <div class="d-flex" style="height: 100px;">
+            <div class="bg-secondary border-0 rounded-2" style="width: 100px; height: 100px;">
+                ${doctor.image ? `<img src="${doctor.image}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.5rem;" alt="${doctor.name}">` : ''}
+            </div>
+            <div class="w-75 border border-0 d-flex flex-column align-items-center">
+                <p class="text-center">${doctor.name}</p>
+                <div class="w-75 rounded-2 bg-primary d-flex justify-content-center align-items-center" style="height: 20px">
+                    <p class="text-white text-center m-0">${doctor.specialty}</p>
+                </div>
+                <div class="w-75 rounded-2 mt-2 ${disponibleClass} d-flex justify-content-center align-items-center" style="height: 20px">
+                    <p class="text-white text-center m-0">${disponibleText}</p>
+                </div>
+            </div>
+        </div>
+        <div style="height: 40%;">
+            <p style="font-size: small;">${doctor.description}</p>
+        </div>
+        <div class="d-flex justify-content-evenly">
+            <button class="edit-btn px-5 border-dark rounded-3 bg-white">Modifier</button>
+            <button class="delete-btn px-5 border-0 rounded-3 bg-danger text-white">Supprimer</button>
+        </div>
     `;
 
-    const tbody = document.createElement('tbody');
-
-    appointments.forEach(app => {
-        const tr = document.createElement('tr');
-
-        const tdName = document.createElement('td');
-        tdName.textContent = app.patientName;
-
-        const tdEmail = document.createElement('td');
-        tdEmail.textContent = app.patientEmail;
-
-        const tdDoctor = document.createElement('td');
-        tdDoctor.textContent = app.appointmentDoctor;
-
-        const tdDate = document.createElement('td');
-        tdDate.textContent = new Date(app.appointmentDate).toLocaleDateString('fr-FR');
-
-        const tdTime = document.createElement('td');
-        tdTime.textContent = app.appointmentTime;
-
-        const tdStatus = document.createElement('td');
-        const statusBadge = document.createElement('span');
-        statusBadge.className = `badge bg-${statusColor(app.appointmentStatus)}`;
-        statusBadge.textContent = statusText(app.appointmentStatus);
-        tdStatus.appendChild(statusBadge);
-
-        const tdActions = document.createElement('td');
-        tdActions.className = 'text-center';
-
-        const btnGroup = document.createElement('div');
-        btnGroup.className = 'btn-group btn-group-sm';
-
-        const btnAccept = document.createElement('button');
-        btnAccept.className = 'btn btn-success';
-        btnAccept.innerHTML = '<i class="fas fa-check"></i>';
-        btnAccept.title = 'Accepter';
-        btnAccept.onclick = () => changeStatus(app.id, 'accepted');
-
-        const btnReject = document.createElement('button');
-        btnReject.className = 'btn btn-danger';
-        btnReject.innerHTML = '<i class="fas fa-times"></i>';
-        btnReject.title = 'Refuser';
-        btnReject.onclick = () => changeStatus(app.id, 'rejected');
-
-        btnGroup.appendChild(btnAccept);
-        btnGroup.appendChild(btnReject);
-        tdActions.appendChild(btnGroup);
-
-        tr.appendChild(tdName);
-        tr.appendChild(tdEmail);
-        tr.appendChild(tdDoctor);
-        tr.appendChild(tdDate);
-        tr.appendChild(tdTime);
-        tr.appendChild(tdStatus);
-        tr.appendChild(tdActions);
-
-        tbody.appendChild(tr);
-    });
-
-    table.appendChild(thead);
-    table.appendChild(tbody);
-    tableContainer.appendChild(table);
-    appointmentsList.appendChild(tableContainer);
-}
-
-function updateStats() {
-    const total = allAppointments.length;
-    const pending = allAppointments.filter(a => a.appointmentStatus === 'pending').length;
-    const accepted = allAppointments.filter(a => a.appointmentStatus === 'accepted').length;
-    const rejected = allAppointments.filter(a => a.appointmentStatus === 'rejected').length;
-
-    document.getElementById('stat-total').textContent = total;
-    document.getElementById('stat-pending').textContent = pending;
-    document.getElementById('stat-accepted').textContent = accepted;
-    document.getElementById('stat-rejected').textContent = rejected;
-}
-
-function changeStatus(id, nouveauStatut) {
-    allAppointments = allAppointments.map(app => {
-        if (app.id === id) {
-            return { ...app, appointmentStatus: nouveauStatut };
+    cardContainer.querySelector('.delete-btn').addEventListener("click", async () => {
+        const confirmed = await deleteAlert();
+        if (confirmed) {
+            doctorsInformation = doctorsInformation.filter(doc => doc.id !== doctor.id);
+            localStorage.setItem("doctors", JSON.stringify(doctorsInformation));
+            rendercard();
         }
-        return app;
     });
-    localStorage.setItem('appointments', JSON.stringify(allAppointments));
-    loadAppointments();
+
+    cardContainer.querySelector('.edit-btn').addEventListener("click", () => {
+        openEditForm(doctor);
+    });
+
+    return cardContainer;
 }
 
-function statusColor(status) {
-    const colors = {
-        'pending': 'warning',
-        'accepted': 'success',
-        'rejected': 'danger',
-    };
-    return colors[status] || 'secondary';
-}
+function openEditForm(doctor) {
+    section.style.pointerEvents = "none";
+    formdoctor.style.display = "block";
+    ajoutestate = true;
+    transid = doctor.id;
 
-function statusText(status) {
-    const texts = {
-        'pending': 'En attente',
-        'accepted': 'Accepté',
-        'rejected': 'Refusé',
-    };
-    return texts[status] || status;
-}
+    nameinput.value = doctor.name;
+    specialtyInput.value = doctor.specialty;
+    descriptionInput.value = doctor.description;
+    diponiblebtnFlage = doctor.diponible;
 
-function removeAllData() {
-
-    if(allAppointments == []) {
-        alert('Y a aucun rendez-vous pour le moment.');
-        return
-    }
-    if (confirm('Voulez-vous vraiment effacer tous les rendez-vous ?')) {
-        localStorage.removeItem('appointments');
-        allAppointments = [];
-        appointments = [];
-        renderAppointments();
-        updateStats();
-        alert('Toutes les données ont été effacées avec succès.');
+    if (diponiblebtnFlage) {
+        diponiblefalse.style = "height: 18px; width: 198px; top: 0; left: -200px;";
+        diponibletrue.style = "height: 18px; width: 198px; top: 0; left: 0";
+    } else {
+        diponiblefalse.style = "height: 18px; width: 198px; top: 0; left: 0";
+        diponibletrue.style = "height: 18px; width: 198px; top: 0; left: 200px";
     }
 }
 
-document.getElementById('searchInput')?.addEventListener('keyup', function () {
-    const searchTerm = this.value.toLowerCase();
-    filterAppointments(searchTerm);
-});
+function initializeEventListeners() {
+    ajouterbtn.addEventListener("click", () => {
+        resetform();
+        transid = null;
+        
+        if (!ajoutestate) {
+            formdoctor.style.display = "block";
+            ajoutestate = true;
+        } else {
+            formdoctor.style.display = "none";
+            ajoutestate = false;
+        }
+    });
 
-function filterAppointments(searchTerm = '') {
-    if (searchTerm === '') {
-        appointments = [...allAppointments];
-        renderAppointments();
-        return;
-    }
+    diponiblebtn.addEventListener("click", () => {
+        diponiblebtnFlage = !diponiblebtnFlage;
+        
+        if (diponiblebtnFlage) {
+            diponiblefalse.style = "height: 18px; width: 198px; top: 0; left: -200px;";
+            diponibletrue.style = "height: 18px; width: 198px; top: 0; left: 0";
+        } else {
+            diponiblefalse.style = "height: 18px; width: 198px; top: 0; left: 0";
+            diponibletrue.style = "height: 18px; width: 198px; top: 0; left: 200px";
+        }
+    });
+    submitBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        section.style.pointerEvents = "auto";
 
-    appointments = allAppointments.filter(app =>
-        app.patientName.toLowerCase().includes(searchTerm) ||
-        app.patientEmail.toLowerCase().includes(searchTerm) ||
-        app.appointmentDoctor.toLowerCase().includes(searchTerm)
-    );
+        const nameValue = nameinput.value.trim();
+        const specialtyValue = specialtyInput.value;
+        const descriptionValue = descriptionInput.value.trim();
 
-    const appointmentsList = document.getElementById('appointmentsList');
-    const appointmentCount = document.getElementById('appointmentCount');
+        if (specialtyValue === "Choisissez une spécialisation" || !nameValue || !descriptionValue) {
+            alert("Veuillez remplir tous les champs");
+            return;
+        }
 
-    if (appointments.length === 0) {
-        appointmentsList.innerHTML = '';
-        const alert = document.createElement('div');
-        alert.className = 'alert alert-warning text-center';
-        const icon = document.createElement('i');
-        icon.className = 'fas fa-search';
-        alert.appendChild(icon);
-        alert.appendChild(document.createTextNode(` Aucun rendez-vous trouvé pour "${searchTerm}"`));
-        appointmentsList.appendChild(alert);
-        appointmentCount.textContent = '0';
-        return;
-    }
+        if (!transid) {
+            const doctor = {
+                id: Date.now().toString(),
+                name: nameValue,
+                specialty: specialtyValue,
+                diponible: diponiblebtnFlage,
+                description: descriptionValue,
+                image: "",
+                days: {
+                    Lundi: false,
+                    Mardi: false,
+                    Mercredi: false,
+                    Jeudi: false,
+                    Vendredi: false,
+                }
+            };
+            doctorsInformation.push(doctor);
+        } else {
+            const index = doctorsInformation.findIndex(doc => doc.id === transid);
+            if (index !== -1) {
+                doctorsInformation[index].name = nameValue;
+                doctorsInformation[index].specialty = specialtyValue;
+                doctorsInformation[index].description = descriptionValue;
+                doctorsInformation[index].diponible = diponiblebtnFlage;
+            }
+        }
 
-    renderAppointments();
+        localStorage.setItem("doctors", JSON.stringify(doctorsInformation));
+        resetform();
+        rendercard();
+        formdoctor.style.display = "none";
+        ajoutestate = false;
+        transid = null;
+    });
+
+    // Recherche
+    checheBar.addEventListener("input", () => {
+        const searchTerm = checheBar.value.toLowerCase();
+        filterDoctors(searchTerm, sidebarOption.value);
+    });
+
+    sidebarOption.addEventListener("change", () => {
+        const searchTerm = checheBar.value.toLowerCase();
+        filterDoctors(searchTerm, sidebarOption.value);
+    });
+}
+
+function filterDoctors(searchTerm, specialty) {
+    cardsContainer.innerHTML = "";
+
+    let filteredDoctors = doctorsInformation.filter(doctor => {
+        const matchesSearch = !searchTerm || doctor.name.toLowerCase().includes(searchTerm);
+        const matchesSpecialty = specialty === "tout" || doctor.specialty === specialty;
+        return matchesSearch && matchesSpecialty;
+    });
+
+    filteredDoctors.forEach(doctor => {
+        const card = createDoctorCard(doctor);
+        cardsContainer.appendChild(card);
+    });
 }

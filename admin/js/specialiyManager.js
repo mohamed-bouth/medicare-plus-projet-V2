@@ -38,17 +38,10 @@ function addArrayToLocalStorage(){
     localStorage.setItem("docteur", JSON.stringify(array));
 }
 
-localstoragebtn.addEventListener("click",addArrayToLocalStorage)
-
-
-
-
 openModalBtn.addEventListener('click', function (event) {
     event.preventDefault();
     addSpeciality();
-}
-)
-//   add new speciality to the table
+})
 
 const specialityForm = document.getElementById('specialityForm');
 const specialityTableBody = document.getElementById('specialityTableBody');
@@ -127,6 +120,4 @@ function loadData() {
 
 
 }
-
-
-    loadData()
+loadData()
