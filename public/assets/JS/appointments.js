@@ -2,7 +2,6 @@ let doctors = JSON.parse(localStorage.getItem("doctors")) || []
 
 doctorsData = doctors
 
-console.log(doctors)
 
 document.addEventListener('DOMContentLoaded', function () {
     initializeAppointmentsPage();
@@ -103,15 +102,15 @@ function validateFieldById(fieldId) {
 }
 
 async function updateDoctorsSelect() {
-    await loadData();
+    // await loadData();
     const select = document.getElementById('appointmentDoctor');
     if (!select) return;
 
     while (select.children.length > 1) {
         select.removeChild(select.lastChild);
     }
-    loadedData.forEach(doctor => {
-        if (doctor.available) {
+    doctorsData.forEach(doctor => {
+        if (doctor.diponible) {
             const option = document.createElement('option');
             option.value = doctor.id;
             option.textContent = `${doctor.name} (${getSpecialtyName(doctor.specialty)})`;
@@ -128,8 +127,8 @@ function addAppointment() {
     const appointmentDoctor = parseInt(document.getElementById('appointmentDoctor').value);
     const appointmentReason = document.getElementById('appointmentReason').value;
 
-    const doctorId = document.getElementById('appointmentDoctor').value;
-    const doctor = loadedData.find(d => d.id === doctorId);
+    const doctorId = parseInt(document.getElementById('appointmentDoctor').value);
+    const doctor = doctorsData.find(d => parseInt(d.id) === doctorId);
 
     const newAppointment = {
         id: Date.now(),

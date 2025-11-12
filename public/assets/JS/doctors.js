@@ -1,10 +1,16 @@
+let doctors = JSON.parse(localStorage.getItem("doctors")) || []
+
+loadedData = doctors
+
+console.log(loadedData)
+
 document.addEventListener('DOMContentLoaded', function () {
     initializeDoctorsPage();
     initializeSearch();
 });
 
 async function initializeDoctorsPage() {
-    await loadData();
+    // await loadData();
 
     if (!loadedData) {
         console.error("Impossible de charger les données");
@@ -30,7 +36,7 @@ async function initializeDoctorsPage() {
 }
 
 function renderDoctors() {
-
+    console.log(loadedData)
     if (!loadedData) return;
 
     const doctorsList = document.getElementById('doctorsList');
@@ -47,7 +53,7 @@ function renderDoctors() {
 
     filteredDoctors.forEach(doctor => {
         const isFavorite = state.favoriteDoctors.includes(doctor.id);
-        const availabilityBadge = doctor.available ?
+        const availabilityBadge = doctor.diponible ?
             '<span class="badge" style="background-color: #10b981; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 500;">Disponible</span>' :
             '<span class="badge" style="background-color: #ef4444; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 500;">Indisponible</span>';
 
@@ -56,7 +62,7 @@ function renderDoctors() {
         doctorCard.innerHTML = `
             <div class="card doctor-card h-100">
                 <div class="position-relative">
-                    <img src="${doctor.image}" class="card-img-top" alt="${doctor.name}" style="width:120px; object-fit: cover;">
+                    <img src="${doctor.url}" class="card-img-top" alt="${doctor.name}" style="width:120px; object-fit: cover;">
                     <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${doctor.id}">
                         <i class="bi ${isFavorite ? 'bi-heart-fill' : 'bi-heart'}"></i>
                     </button>
