@@ -1,6 +1,5 @@
 
 const cardsContainer = document.getElementById("cardsContainer")
-
 const nameinput = document.getElementById("nameinput")
 const specialtyInput = document.getElementById("specialtyinput")
 const descriptionInput = document.getElementById("descriptionInput")
@@ -16,8 +15,44 @@ const toutdoctor = document.getElementById("toutdoctor")
 const toutdiponible = document.getElementById("toutdiponible")
 const toutspicale = document.getElementById("toutspicale")
 const section = document.getElementById("section")
+const doctorsidebar = document.getElementById("doctorSideBar")
+const toggle = document.getElementById("profileToggle");
+const dropdownMenu = document.getElementById("dropdownMenu");
+const doctorSidebarBtn = document.getElementById("doctorSidebarBtn")
+const cancel = document.getElementById("cancel")
+const photoInput = document.getElementById("photoInput")
 
 
+let clickOrNo = false
+doctorsidebar.style.left = "99%"
+
+doctorSidebarBtn.addEventListener("click", () => {
+    if (clickOrNo === false) {
+        doctorsidebar.style.left = "auto"
+        clickOrNo = true
+        console.log("work")
+    } else {
+        doctorsidebar.style.left = "99%"
+        clickOrNo = false
+        console.log("work")
+    }
+})
+
+
+
+dropdownMenu.classList.toggle('show');
+
+
+
+
+function toggleMenu() {
+    dropdownMenu.classList.toggle('show');
+}
+
+profileToggle.addEventListener('click', function (event) {
+    event.preventDefault();
+    toggleMenu();
+});
 
 
 
@@ -25,14 +60,20 @@ let doctors = JSON.parse(localStorage.getItem("doctors")) || []
 
 let doctorsInformation = doctors
 
-const specialty = [
-    "general",
-    "Dermatologue",
-    "Ophtalmologue",
-    "Cardiologue",
-    "ORL"
-]
 
+let specialty = []
+
+let spi = localStorage.getItem("speciality")
+
+if (spi) {
+    spi = JSON.parse(spi)
+
+    spi.forEach(element => {
+        specialty.push(element.name)
+    })
+}
+
+console.log(specialty)
 
 
 specialty.forEach(element => {
@@ -65,6 +106,7 @@ function renderStatistique() {
 renderStatistique()
 
 function resetform() {
+    photoInput.value = ""
     nameinput.value = ""
     specialtyInput.value = "Choisissez une spécialisation"
     descriptionInput.value = ""
@@ -133,8 +175,9 @@ function rendercard() {
     cardsContainer.innerHTML = ""
     doctorsInformation.forEach(doctor => {
         const cardContainer = document.createElement("div")
-        cardContainer.className = "border border-dark rounded-3"
+        cardContainer.className = "border border-gray rounded-3 my-2 bg-body-tertiary mx-2 card"
         cardContainer.style = "width: 300px; height: 225px;"
+
 
         const uperContainer = document.createElement("div")
         uperContainer.className = "d-flex"
@@ -144,6 +187,10 @@ function rendercard() {
         imgContainer.className = "bg-secondary border-0 rounded-2"
         imgContainer.style = "width: 100px; height: 100px;"
 
+        const img = document.createElement("img")
+        img.className = "w-100 h-100 rounded-2"
+        img.src = doctor.url
+
         const nameContainer = document.createElement("div")
         nameContainer.className = "w-75 border border-0 d-flex flex-column align-items-center"
 
@@ -152,7 +199,7 @@ function rendercard() {
         name.textContent = doctor.name
 
         const specialty = document.createElement("div")
-        specialty.className = "w-75 rounded-2 bg-primary d-flex justify-content-center align-items-center"
+        specialty.className = "w-75 rounded-2 bg-primary d-flex justify-content-center align-items-center spicialty"
         specialty.style = "height: 20px"
 
         const specialtytext = document.createElement("p")
@@ -160,7 +207,7 @@ function rendercard() {
         specialtytext.textContent = doctor.specialty
 
         const disponible = document.createElement("div")
-        disponible.className = "w-75 rounded-2 mt-2 bg-success d-flex justify-content-center align-items-center"
+        disponible.className = "w-75 rounded-2 mt-2 bg-success d-flex justify-content-center align-items-center spicialty"
         disponible.style = "height: 20px"
 
         const disponibletext = document.createElement("p")
@@ -169,29 +216,31 @@ function rendercard() {
             disponibletext.textContent = "desponible"
         } else {
             disponibletext.textContent = "non desponible"
-            disponible.className = "w-75 rounded-2 mt-2 bg-danger d-flex justify-content-center align-items-center"
+            disponible.className = "w-75 rounded-2 mt-2 bg-danger d-flex justify-content-center align-items-center spicialty"
         }
         const discard = document.createElement("div")
         discard.style = "height: 40%;"
+        discard.className = "des"
 
         const description = document.createElement("p")
         description.style = "font-size: small;"
         description.textContent = doctor.description
 
         const btnContainer = document.createElement("div")
-        btnContainer.className = "d-flex justify-content-evenly"
+        btnContainer.className = "d-flex justify-content-evenly btncontainer"
 
         const editbtn = document.createElement("button")
-        editbtn.className = "px-5 border-dark rounded-3 bg-white"
+        editbtn.className = "px-5 border-dark rounded-3 bg-white btns"
         editbtn.textContent = "edit"
 
         const dltbtn = document.createElement("button")
-        dltbtn.className = "px-5 border-0 rounded-3 bg-danger text-white"
+        dltbtn.className = "px-5 border-0 rounded-3 bg-danger text-white btns"
         dltbtn.textContent = "delete"
 
         cardsContainer.appendChild(cardContainer)
         cardContainer.appendChild(uperContainer)
         uperContainer.appendChild(imgContainer)
+        imgContainer.appendChild(img)
         uperContainer.appendChild(nameContainer)
         nameContainer.appendChild(name)
         nameContainer.appendChild(specialty)
@@ -242,6 +291,7 @@ function rendercard() {
                 nameinput.value = doctor.name
                 specialtyInput.value = doctor.specialty
                 descriptionInput.value = doctor.description
+                photoInput.value = doctor.url
                 transid = doctor.id
             }
             rendercardagain()
@@ -250,6 +300,8 @@ function rendercard() {
     });
 
 }
+
+
 
 rendercard()
 
@@ -320,7 +372,14 @@ ajouterbtn.addEventListener("click", () => {
 
 })
 
+cancel.addEventListener("click" , (e) => {
+    e.preventDefault()
+    formdoctor.style.display = "none"
+    ajoutestate = false
+})
+
 function addcard() {
+    photovlaue = photoInput.value
     nameValue = nameinput.value
     specialtyValue = specialtyInput.value
     descriptionValue = descriptionInput.value
@@ -330,16 +389,17 @@ function addcard() {
     }
     const doctor = {
         id: Date.now(),
+        url: photovlaue,
         name: nameValue,
         specialty: specialtyValue,
         diponible: trans,
         description: descriptionValue,
         days: {
-           Lundi: false,
-           Mardi: false,
-           Mercredi: false,
-           Jeudi: false,
-           Vendredi: false,
+            Lundi: false,
+            Mardi: false,
+            Mercredi: false,
+            Jeudi: false,
+            Vendredi: false,
         }
     }
     doctorsInformation.push(doctor)
@@ -363,6 +423,7 @@ submitBtn.addEventListener("click", (e) => {
                 doc.name = nameinput.value
                 doc.specialty = specialtyInput.value
                 doc.description = descriptionInput.value
+                doc.url = photoInput.value
                 doc.diponible = transedit
                 console.log(doctorsInformation)
 
@@ -380,7 +441,7 @@ submitBtn.addEventListener("click", (e) => {
 
 function rendercardByfilter(doctor) {
     const cardContainer = document.createElement("div");
-    cardContainer.className = "border border-dark rounded-3";
+    cardContainer.className = "border border-gray rounded-3 my-2 bg-body-tertiary";
     cardContainer.style = "width: 300px; height: 225px;";
 
     const uperContainer = document.createElement("div");
@@ -390,6 +451,10 @@ function rendercardByfilter(doctor) {
     const imgContainer = document.createElement("div");
     imgContainer.className = "bg-secondary border-0 rounded-2";
     imgContainer.style = "width: 100px; height: 100px;";
+
+    const img = document.createElement("img")
+    img.className = "w-100 h-100 rounded-2"
+    img.src = doctor.url
 
     const nameContainer = document.createElement("div");
     nameContainer.className = "w-75 border border-0 d-flex flex-column align-items-center";
@@ -441,6 +506,7 @@ function rendercardByfilter(doctor) {
     cardsContainer.appendChild(cardContainer);
     cardContainer.appendChild(uperContainer);
     uperContainer.appendChild(imgContainer);
+    imgContainer.appendChild(img)
     uperContainer.appendChild(nameContainer);
     nameContainer.appendChild(name);
     nameContainer.appendChild(specialty);
