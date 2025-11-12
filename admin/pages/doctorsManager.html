@@ -11,15 +11,16 @@
 </head>
 
 <body>
-  <header>
-    <!-------- sidebar ------------>
+  
+    <header>
+        <!-------- sidebar ------------>
 
-    <div class="d-flex flex-column flex-shrink-0 p-3  my-sidebar shadow p-3 mb-5 bg-body-tertiary rounded">
-      <a href="." class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
-        <img class="bi me-2 logo" src="/admin/images/icon.png" alt="Logo">
-        <span class="fs-4 name my-burger">MediCare+</span>
-      </a>
-      <hr>
+        <div class="d-flex flex-column flex-shrink-0 p-3  my-sidebar shadow p-3 mb-5 bg-body-tertiary rounded">
+            <a href="." class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
+                <img class="bi me-2 logo" src="/admin/images/icon.png" alt="Logo">
+                <span class="fs-4 name my-burger">MediCare+</span>
+            </a>
+            <hr>
 
       <ul class="nav nav-pills flex-column mb-auto space">
         <li class="nav-item">
@@ -67,8 +68,20 @@
       </div>
     </div>
 
+            <div class="profil-section">
+                <a id="profileToggle" class="d-flex align-items-center link-dark text-decoration-none " href="">
+                    <img class="rounded-circle me-2" src="/admin/images/profil.png" alt="profil">
+                    <strong class="my-burger">secretaire</strong>
+                    <span class="flesh">&#9662;</span>
+                </a>
+                <!-- hidden menu -->
+                <div id="dropdownMenu" class="dropdown-menu">
+                    <a href="/admin/login.html" class="dropdown-item">Se déconnecter</a>
+                </div>
+            </div>
+        </div> 
+    </header>
 
-  </header>
   <section id="section" class="d-flex section">
     <div id="formdoctor" style="left: 22%; top: 10%; display: none; pointer-events: auto; z-index: 102;"
       class="border align-self-center rounded-4 shadow-lg p-3 w-50 position-absolute bg-white formi">
@@ -201,6 +214,7 @@
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>
   <script src="/admin/js/doctorsManger.js"></script>
+  <script src="/admin/js/specialiyManager.js"></script>
 </body>
 
 </html>
