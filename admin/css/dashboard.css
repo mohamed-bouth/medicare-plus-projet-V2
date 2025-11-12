@@ -1,0 +1,20 @@
+.stat-card h3 {
+    font-size: 1rem;
+}
+
+.stat-card .value {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    .stat-card h3 {
+        font-size: 0.9rem;
+    }
+    .stat-card .value {
+        font-size: 1.3rem;
+    }
+    #specialty-stats div {
+        font-size: 0.9rem;
+    }
+}

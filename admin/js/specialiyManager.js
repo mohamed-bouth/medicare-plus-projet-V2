@@ -38,17 +38,10 @@ function addArrayToLocalStorage(){
     localStorage.setItem("docteur", JSON.stringify(array));
 }
 
-localstoragebtn.addEventListener("click",addArrayToLocalStorage)
-
-
-
-
 openModalBtn.addEventListener('click', function (event) {
     event.preventDefault();
     addSpeciality();
-}
-)
-//   add new speciality to the table
+})
 
 const specialityForm = document.getElementById('specialityForm');
 const specialityTableBody = document.getElementById('specialityTableBody');
@@ -83,10 +76,10 @@ specialityForm.addEventListener('submit', (e) => {
         <td>${newSpeciality.description}</td>
         <td class="d-flex flex-row">
             <button class="btn btn-sm">
-                <img src="/public/assets/images/delete-icon.png" style="width: 20px;" alt="">
+                <img src="/admin/images/delete-icon.png" style="width: 20px;" alt="">
             </button>
             <button class="btn btn-sm">
-                <img src="/public/assets/images/pencil-icon.png" style="width:20px;" alt="">
+                <img src="/admin/images/pencil-icon.png" style="width:20px;" alt="">
             </button>
         </td>
     `;
@@ -111,10 +104,10 @@ function loadData() {
  
                             <td class="d-flex flex-row">
                                 <button class="btn btn-sm">
-                                    <img src="/public/assets/images/delete-icon.png" style="width: 20px;" alt="">
+                                    <img src="/admin/images/delete-icon.png" style="width: 20px;" alt="">
                                 </button>
                                 <button class="btn btn-sm">
-                                    <img src="/public/assets/images/pencil-icon.png" style="width:20px;" alt="">
+                                    <img src="/admin/images/pencil-icon.png" style="width:20px;" alt="">
                                 </button>
                             </td>`;
 
@@ -127,6 +120,4 @@ function loadData() {
 
 
 }
-
-
-    loadData()
+loadData()

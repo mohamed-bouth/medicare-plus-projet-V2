@@ -7,29 +7,93 @@
   <title>doctor page</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="/admin/css/doctor.css">
 </head>
 
 <body>
-  <section id="section" class="d-flex w-100">
-    <div id="formdoctor" style="left: 10%; top: 10%; display: none; pointer-events: auto;"
-      class="border align-self-center rounded-4 shadow-lg p-3 w-50 position-absolute bg-white">
+  <header>
+    <!-------- sidebar ------------>
+
+    <div class="d-flex flex-column flex-shrink-0 p-3  my-sidebar shadow p-3 mb-5 bg-body-tertiary rounded">
+      <a href="." class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
+        <img class="bi me-2 logo" src="/admin/images/icon.png" alt="Logo">
+        <span class="fs-4 name my-burger">MediCare+</span>
+      </a>
+      <hr>
+
+      <ul class="nav nav-pills flex-column mb-auto space">
+        <li class="nav-item">
+        <li>
+          <a href="/admin/pages/dashboard.html" class="nav-link mt-4">
+            <img src="/admin/images/homeicon.png" alt="">
+            <span class="p-4 text-center fs-4 my-burger"> Dashboard</span></a>
+        </li>
+        <a href="/admin/pages/doctorsManager.html" class="nav-link mt-3">
+          <img src="/admin/images/icon-2.png" alt="logo">
+          <span class="p-1.8 my-burger"> Gestion des médecins</span>
+        </a>
+        </li>
+        <li>
+          <a href="/admin/pages/specialityManager.html" class="nav-link mt-3">
+            <img src="/admin/images/icon-3.png" alt="logo">
+            <span class=" p-1.8 my-burger">Gestion des spécialités</span>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/pages/disponibilités.html" class="nav-link mt-3 ">
+            <img src="/admin/images/icon-4.png" alt="logo">
+            <span class="p-1.8 my-burger"> Gestion des disponibilités</span>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/pages/appointementsManager.html" class="nav-link mt-3">
+            <img src="/admin/images/icon-5.png" alt="logo">
+            <span class="p-1.8 my-burger">Gestion des rendez-vous</span>
+          </a>
+        </li>
+      </ul>
+      <hr>
+
+      <div class="profil-section">
+        <a id="profileToggle" class="d-flex align-items-center link-dark text-decoration-none " href="">
+          <img class="rounded-circle me-2" src="/admin/images/profil.png" alt="profil">
+          <strong class="my-burger">secretaire</strong>
+          <span class="flesh">&#9662;</span>
+        </a>
+        <!-- hidden menu -->
+        <div id="dropdownMenu" class="dropdown-menu">
+          <a href="/admin/login.html" class="dropdown-item">Se déconnecter</a>
+        </div>
+      </div>
+    </div>
+
+
+  </header>
+  <section id="section" class="d-flex section">
+    <div id="formdoctor" style="left: 22%; top: 10%; display: none; pointer-events: auto; z-index: 102;"
+      class="border align-self-center rounded-4 shadow-lg p-3 w-50 position-absolute bg-white formi">
       <p class="fs-3 text-primary text-center">formulaire ajouter un médecin</p>
       <form>
         <div class="d-flex w-100 gap-4  flex-column">
-          <div class="d-flex justify-content-evenly">
-            <img style="width: 100px; height: 100px;" class="border rounded-circle" alt="image"
+          <div class="d-flex justify-content-evenly ">
+            <img style="width: 100px; height: 100px;" class="border rounded-circle imgs" alt="image"
               src="/admin/images/mdi_doctor.png">
-            <div>
+            <div class="conti">
               <p class="fw-bold">Veuillez sélectionner la disponibilité du médecin</p>
-              <div id="diponiblebtn" style="width: 200px; height: 20px; cursor: pointer;" class="border border-dark rounded-4 position-relative d-flex align-items-center overflow-hidden">
-                <div id="diponiblefalse" style="width: 198px; top: 0; left: 0; height: 18px;" class="position-absolute bg-danger text-white text-nowrap d-flex justify-content-center align-items-center"> none disponible</div>
-                <div id="diponibletrue" style="width: 198px; top: 0; left: 200px; height: 18px;" class="position-absolute bg-success text-white text-nowrap d-flex justify-content-center align-items-center">disponible</div>
+              <div id="diponiblebtn" style="width: 200px; height: 20px; cursor: pointer;"
+                class="border border-dark rounded-4 position-relative d-flex align-items-center overflow-hidden">
+                <div id="diponiblefalse" style="width: 198px; top: 0; left: 0; height: 18px;"
+                  class="position-absolute bg-danger text-white text-nowrap d-flex justify-content-center align-items-center">
+                  none disponible</div>
+                <div id="diponibletrue" style="width: 198px; top: 0; left: 200px; height: 18px;"
+                  class="position-absolute bg-success text-white text-nowrap d-flex justify-content-center align-items-center">
+                  disponible</div>
               </div>
             </div>
           </div>
-          <div class="d-flex flex-column justify-content-center gap-4">
-            <label class="btn btn-primary" for="photoInput">Envoyer une photo</label>
-            <input type="file" id="photoInput" name="photo" accept="image/*" hidden>
+          <div class="d-flex flex-column justify-content-center">
+            <label class="fw-bold text-nowrap" >Envoyer une photo URL</label>
+            <input type="text" id="photoInput" style="outline: none; height: 40px;" class="w-100 rounded-3 border border-dark-subtle">
           </div>
         </div>
         <div style="height: 300px;" class="d-flex flex-column justify-content-evenly">
@@ -52,17 +116,18 @@
           </div>
         </div>
         <button id="submitBtn" class="btn btn-primary">submit</button>
+        <button id="cancel" class="btn btn-secondary">cancel</button>
       </form>
     </div>
-    <div id="cardsContainer" class=" w-75 d-flex justify-content-evenly flex-wrap my-4">
+    <div id="cardsContainer" style="width: 100%;" class="d-flex justify-content-evenly flex-wrap my-3 gap-1 ">
     </div>
-    <div style="background-color: #569AFF; height: auto;" class=" w-25 ">
-      <h1 class="text-center text-white py-3">Liste des médecins</h1>
+    <div id="doctorSideBar" style=" width: 330px; height: 100%; position: fixed; right: 0; box-shadow: 4px 4px 15px; z-index: 101;" class="bg-body-tertiary">
+      <h1 style="color: #1F2394;" class="text-center py-2 fs-2">Liste des médecins</h1>
       <div class="d-flex flex-column gap-4 w-100 align-items-center my-4">
         <form style="width: 90%; height: 40px; border-radius: 10px;"
           class="d-flex flex-nowrap border border-dark-subtle">
-          <input id="cherche" type="text" style="border-radius: 8px;" class="w-75 border-0 rounded-end-0 text-center fs-4"
-            placeholder="Rechercher">
+          <input id="cherche" type="text" style="border-radius: 8px;"
+            class="w-75 border-0 rounded-end-0 text-center fs-4" placeholder="Rechercher">
           <button style="border-radius: 8px;" class="w-25 border-0 rounded-start-0">
             <img src="/admin/images/ri_search-line.png" alt="ch">
           </button>
@@ -73,7 +138,7 @@
         </select>
       </div>
       <div class="d-flex gap-2 justify-content-center flex-wrap">
-        <div style="width: 180px; height: 150px;" class="bg-white border border-dark-subtle rounded-4">
+        <div style="width: 150px; height: 130px;" class="bg-white border border-dark-subtle rounded-4">
           <p class="w-100 text-center fs-5 my-2">Totale doctores</p>
           <div class="w-100 d-flex justify-content-center align-items-center gap-3">
             <img src="/admin/images/Vector1.png" alt="emoji">
@@ -83,7 +148,7 @@
             </div>
           </div>
         </div>
-        <div style="width: 180px; height: 150px;" class="bg-white border border-dark-subtle rounded-4">
+        <div style="width: 150px; height: 130px;" class="bg-white border border-dark-subtle rounded-4">
           <p class="w-100 text-center fs-6 my-2">doctores disponibles</p>
           <div class="w-100 d-flex justify-content-center align-items-center gap-3">
             <img src="/admin/images/Vector.png" alt="emoji">
@@ -95,7 +160,7 @@
         </div>
       </div>
       <div class="d-flex gap-2 justify-content-center mt-2 flex-wrap">
-        <div style="width: 180px; height: 150px;" class="bg-white border border-dark-subtle rounded-4">
+        <div style="width: 150px; height: 130px;" class="bg-white border border-dark-subtle rounded-4">
           <p class="w-100 text-center fs-5 my-2"> spécialisations</p>
           <div class="w-100 d-flex justify-content-center align-items-center gap-3">
             <img src="/admin/images/vaadin_specialist.png" alt="emoji">
@@ -105,7 +170,7 @@
             </div>
           </div>
         </div>
-        <div style="width: 180px; height: 150px;" class="bg-white border border-dark-subtle rounded-4">
+        <div style="width: 150px; height: 130px;" class="bg-white border border-dark-subtle rounded-4">
           <p class="w-100 text-center fs-5 my-2">les rondez vous</p>
           <div class="w-100 d-flex justify-content-center align-items-center gap-3">
             <img src="/admin/images/lets-icons_date-fill.png" alt="emoji">
@@ -117,19 +182,19 @@
         </div>
       </div>
       <div class="w-100 justify-content-center d-flex my-2">
-        <div style="width: 365px; height: 150px;" class="bg-white border border-dark-subtle rounded-4 d-flex">
-          <div class="w-75 p-2 text-center">
-            <p class="fw-bold">Ajouter un nouveau médecin</p>
-            <p class="fs-6">Tout ce que vous faites ici change la page des médecins. Vous devez être prudent avant
-              d'apporter des modifications</p>
+        <div style="width: 300px; height: 150px;" class="bg-white border border-dark-subtle rounded-4 d-flex">
+          <div style="width: 60%;" class="p-2 text-center">
+            <p class="fw-bold fs-6">Ajouter un médecin</p>
+            <p style="font-size: 15px;">Alerte : tout objet que vous créez ici est stocké dans le stockage local</p>
           </div>
-          <div class="w-25 d-flex flex-column gap-2 p-2">
+          <div style="margin-left: auto;" class="d-flex flex-column gap-2 p-2">
             <img src="/admin/images/mdi_alert.png" alt="alert">
             <button id="ajouterbtn" style="background-color: #569AFF;"
               class="text-white border rounded-3 p-2">Ajouter</button>
           </div>
         </div>
       </div>
+      <button id="doctorSidebarBtn" class="sideBarToggle"></button>
     </div>
   </section>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
