@@ -109,10 +109,10 @@ function updateNotifications() {
             <div class="d-flex justify-content-between align-items-center">
                 <div>
                     <strong>${app.patientName}</strong> a pris un rendez-vous avec 
-                    <strong>${app.appointmentDoctor}</strong><br>
+                    <strong>${app.doctorName}</strong><br>
                     <small class="text-muted">
-                        <i class="far fa-calendar me-1"></i>${new Date(app.appointmentDate).toLocaleDateString('fr-FR')} 
-                        <i class="far fa-clock ms-2 me-1"></i>${app.appointmentTime}
+                        <i class="far fa-calendar me-1"></i>${new Date(app.date).toLocaleDateString('fr-FR')} 
+                        <i class="far fa-clock ms-2 me-1"></i>${app.time}
                     </small>
                 </div>
                 <span class="badge bg-${statusColor}">${getStatusText(app.appointmentStatus)}</span>
@@ -120,60 +120,6 @@ function updateNotifications() {
         `;
 
         notificationsBox.appendChild(item);
-    });
-}
-
-function displayAppointments() {
-    const appointmentsList = document.getElementById('appointmentsList');
-    appointmentsList.innerHTML = '';
-
-    if (allAppointments.length === 0) {
-        appointmentsList.innerHTML = `
-            <div class="alert alert-info text-center">
-                <i class="fas fa-info-circle me-2"></i>Aucun rendez-vous enregistré
-            </div>
-        `;
-        return;
-    }
-
-    const table = document.createElement('table');
-    table.className = 'table table-hover table-striped';
-
-    table.innerHTML = `
-        <thead class="table-light">
-            <tr>
-                <th>Patient</th>
-                <th>Médecin</th>
-                <th>Date</th>
-                <th>Heure</th>
-                <th>Statut</th>
-            </tr>
-        </thead>
-        <tbody id="appointmentsTableBody"></tbody>
-    `;
-
-    appointmentsList.appendChild(table);
-
-    const tbody = document.getElementById('appointmentsTableBody');
-    
-    allAppointments.slice(-10).reverse().forEach(app => {
-        const row = document.createElement('tr');
-        
-        const statusColor = {
-            pending: 'warning',
-            accepted: 'success',
-            rejected: 'danger'
-        }[app.appointmentStatus] || 'secondary';
-
-        row.innerHTML = `
-            <td>${app.patientName}</td>
-            <td>${app.appointmentDoctor}</td>
-            <td>${new Date(app.appointmentDate).toLocaleDateString('fr-FR')}</td>
-            <td>${app.appointmentTime}</td>
-            <td><span class="badge bg-${statusColor}">${getStatusText(app.appointmentStatus)}</span></td>
-        `;
-
-        tbody.appendChild(row);
     });
 }
 
