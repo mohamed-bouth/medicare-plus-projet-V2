@@ -20,7 +20,6 @@ function loadAllData() {
     updateGlobalStats();
     updateSpecialtyStats();
     updateNotifications();
-    displayAppointments();
 }
 
 function initializeDropdown() {

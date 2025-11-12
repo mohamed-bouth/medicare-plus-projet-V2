@@ -38,7 +38,7 @@ function addMeasurement() {
         value
     };
 
-    state.measurements.push(newMeasurement);
+    sat.measurements.push(newMeasurement);
     saveState();
     renderMeasurements();
     updateHealthStats();
@@ -57,13 +57,13 @@ function renderMeasurements() {
         return;
     }
 
-    if (state.measurements.length === 0) {
+    if (sat.measurements.length === 0) {
         measurementsList.innerHTML = '<p class="text-muted">Aucune mesure enregistrée.</p>';
         return;
     }
 
     measurementsList.innerHTML = '';
-    const sortedMeasurements = [...state.measurements].sort((a, b) => {
+    const sortedMeasurements = [...sat.measurements].sort((a, b) => {
         return new Date(b.date) - new Date(a.date);
     });
 
@@ -133,7 +133,7 @@ function getHealthIndicatorClass(type, value) {
 
 function deleteMeasurement(measurementId) {
     if (confirm('Êtes-vous sûr de vouloir supprimer cette mesure?')) {
-        state.measurements = state.measurements.filter(m => m.id !== measurementId);
+        sat.measurements = sat.measurements.filter(m => m.id !== measurementId);
         saveState();
         renderMeasurements();
         updateHealthStats();
@@ -144,7 +144,7 @@ function updateHealthStats() {
     const healthStats = document.getElementById('healthStats');
     if (!healthStats) return;
 
-    if (state.measurements.length === 0) {
+    if (sat.measurements.length === 0) {
         healthStats.innerHTML = '<p class="text-muted">Aucune donnée disponible.</p>';
         return;
     }
@@ -153,7 +153,7 @@ function updateHealthStats() {
     let statsHTML = '';
 
     types.forEach(type => {
-        const measurements = state.measurements.filter(m => m.type === type);
+        const measurements = sat.measurements.filter(m => m.type === type);
 
         if (measurements.length > 0) {
             const sum = measurements.reduce((total, m) => total + m.value, 0);
