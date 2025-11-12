@@ -1,5 +1,8 @@
 let doctors = JSON.parse(localStorage.getItem("doctors")) || []
 
+let speciality = JSON.parse(localStorage.getItem("speciality"))
+console.log(speciality)
+
 loadedData = doctors
 
 console.log(loadedData)
@@ -17,7 +20,14 @@ async function initializeDoctorsPage() {
         return;
     }
 
-    const specialtyFilter = document.getElementById('specialtyFilter');
+    const specialtyFilter = document.getElementById("specialtyFilter");
+
+    speciality.forEach(element => {
+        const optionfilter = document.createElement("option");
+        optionfilter.textContent = element.name;
+        specialtyFilter.appendChild(optionfilter);
+    });
+
     const doctorsList = document.getElementById('doctorsList');
 
     if (!doctorsList) return;
