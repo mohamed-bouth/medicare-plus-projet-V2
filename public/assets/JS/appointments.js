@@ -1,15 +1,20 @@
-let doctors = JSON.parse(localStorage.getItem("doctors")) || []
 
-doctorsData = doctors
+let doctors = JSON.parse(localStorage.getItem("doctors")) || [];
+let appointments = JSON.parse(localStorage.getItem("appointments")) || [];
 
-console.log(doctors)
+let state = {
+    appointments: appointments
+};
+
+let doctorsData = doctors;
+
 
 document.addEventListener('DOMContentLoaded', function () {
     initializeAppointmentsPage();
     initializeSearch();
+    renderAppointments();
 });
 
-const appointmentForm = document.getElementById('appointmentForm');
 
 function initializeAppointmentsPage() {
     const appointmentForm = document.getElementById('appointmentForm');
@@ -21,7 +26,7 @@ function initializeAppointmentsPage() {
     }
 
     updateDoctorsSelect();
-    renderAppointments();
+
     const selectedDoctorId = localStorage.getItem('selectedDoctorId');
     if (selectedDoctorId) {
         const select = document.getElementById('appointmentDoctor');
@@ -51,6 +56,7 @@ function initializeAppointmentsPage() {
         }
     });
 }
+
 
 function validateAppointmentForm() {
     let isValid = true;
@@ -102,16 +108,18 @@ function validateFieldById(fieldId) {
     return isValid;
 }
 
+
 async function updateDoctorsSelect() {
-    await loadData();
     const select = document.getElementById('appointmentDoctor');
     if (!select) return;
 
+    // Supprimer anciennes options sauf la première
     while (select.children.length > 1) {
         select.removeChild(select.lastChild);
     }
-    loadedData.forEach(doctor => {
-        if (doctor.available) {
+
+    doctorsData.forEach(doctor => {
+        if (doctor.diponible) {
             const option = document.createElement('option');
             option.value = doctor.id;
             option.textContent = `${doctor.name} (${getSpecialtyName(doctor.specialty)})`;
@@ -119,6 +127,7 @@ async function updateDoctorsSelect() {
         }
     });
 }
+
 
 function addAppointment() {
     const patientName = document.getElementById('patientName').value;
@@ -128,8 +137,20 @@ function addAppointment() {
     const appointmentDoctor = parseInt(document.getElementById('appointmentDoctor').value);
     const appointmentReason = document.getElementById('appointmentReason').value;
 
-    const doctorId = document.getElementById('appointmentDoctor').value;
-    const doctor = loadedData.find(d => d.id === doctorId);
+    const doctor = doctorsData.find(d => parseInt(d.id) === appointmentDoctor);
+    if (!doctor) {
+        alert("⚠️ الطبيب غير موجود!");
+        return;
+    }
+
+    const dateObj = new Date(appointmentDate);
+    const daysMap = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+    const dayName = daysMap[dateObj.getDay()];
+
+    if (doctor.days && doctor.days[dayName] === false) {
+        alert(`${doctor.name} ne pas disponible a ${dayName}`);
+        return;
+    }
 
     const newAppointment = {
         id: Date.now(),
@@ -140,19 +161,23 @@ function addAppointment() {
         doctorId: appointmentDoctor,
         doctorName: doctor.name,
         doctorSpecialty: doctor.specialty,
-        reason: appointmentReason
+        reason: appointmentReason,
+        appointmentStatus: 'pending',
     };
 
     state.appointments.push(newAppointment);
     saveState();
     renderAppointments();
+
     document.getElementById('appointmentForm').reset();
     document.querySelectorAll('.is-valid').forEach(field => {
         field.classList.remove('is-valid');
     });
 
-    // alert('Votre Rendez-vous est pris avec succès!');
+    alert(` Rendez-vous confirmé avec le Dr ${doctor.name} le ${dayName}.`);
+
 }
+
 
 function renderAppointments() {
     const appointmentsList = document.getElementById('appointmentsList');
@@ -198,10 +223,10 @@ function renderAppointments() {
                 </div>
             </div>
         `;
-
         appointmentsList.appendChild(appointmentItem);
     });
 }
+
 
 function deleteAppointment(appointmentId) {
     if (confirm('Êtes-vous sûr de vouloir supprimer ce rendez-vous?')) {
@@ -229,10 +254,10 @@ function editAppointment(appointmentId) {
         validateFieldById('appointmentDoctor');
 
         deleteAppointment(appointmentId);
-
         document.getElementById('appointmentForm').scrollIntoView({ behavior: 'smooth' });
     }
 }
+
 
 function initializeSearch() {
     const searchInput = document.getElementById('searchInput');
@@ -243,8 +268,6 @@ function initializeSearch() {
         filterAppointments(searchTerm);
     });
 }
-
-const appointmentItems = document.querySelectorAll('.appointment-item');
 
 function filterAppointments(searchTerm) {
     const appointmentItems = document.querySelectorAll('.appointment-item');
@@ -264,30 +287,7 @@ function filterAppointments(searchTerm) {
     });
 }
 
-const patientName = document.getElementById('patientName');
-const patientEmail = document.getElementById('patientEmail');
-const appointmentDate = document.getElementById('appointmentDate');
-const appointmentTime = document.getElementById('appointmentTime');
-const appointmentDoctor = document.getElementById('appointmentDoctor');
 
-let newFormData = JSON.parse(localStorage.getItem('appointments')) || [];
-
-appointmentForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const appointment = {
-        id: Date.now(),
-        patientName: patientName.value,
-        patientEmail: patientEmail.value,
-        appointmentDate: appointmentDate.value,
-        appointmentTime: appointmentTime.value,
-        appointmentDoctor: appointmentDoctor.options[appointmentDoctor.selectedIndex].text,
-        appointmentStatus: 'pending',
-        dateCreation: new Date().toISOString()
-    };
-
-    newFormData.push(appointment);
-    localStorage.setItem('appointments', JSON.stringify(newFormData));
-
-    alert('Rendez-vous enregistré avec succès !');
-});
+function saveState() {
+    localStorage.setItem('appointments', JSON.stringify(state.appointments));
+}

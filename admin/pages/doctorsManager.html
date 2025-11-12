@@ -15,6 +15,7 @@
     <header>
         <!-------- sidebar ------------>
 
+<<<<<<< HEAD
         <div class="d-flex flex-column flex-shrink-0 p-3  my-sidebar shadow p-3 mb-5 bg-body-tertiary rounded">
             <a href="." class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
                 <img class="bi me-2 logo" src="/admin/images/icon.png" alt="Logo">
@@ -54,6 +55,47 @@
                 </li>
             </ul>
             <hr>
+=======
+    <div class="d-flex flex-column flex-shrink-0 p-3  my-sidebar shadow p-3 mb-5 bg-body-tertiary rounded">
+      <a href="/public/index.html" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
+        <img class="bi me-2 logo" src="/admin/images/icon.png" alt="Logo">
+        <span class="fs-4 name my-burger">MediCare+</span>
+      </a>
+      <hr>
+
+      <ul class="nav nav-pills flex-column mb-auto space">
+        <li class="nav-item">
+        <li>
+          <a href="/admin/pages/dashboard.html" class="nav-link mt-4">
+            <img src="/admin/images/homeicon.png" alt="">
+            <span class="p-4 text-center fs-4 my-burger"> Dashboard</span></a>
+        </li>
+        <a href="/admin/pages/doctorsManager.html" class="nav-link mt-3">
+          <img src="/admin/images/icon-2.png" alt="logo">
+          <span class="p-1.8 my-burger"> Gestion des médecins</span>
+        </a>
+        </li>
+        <li>
+          <a href="/admin/pages/specialityManager.html" class="nav-link mt-3">
+            <img src="/admin/images/icon-3.png" alt="logo">
+            <span class=" p-1.8 my-burger">Gestion des spécialités</span>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/pages/disponibilités.html" class="nav-link mt-3 ">
+            <img src="/admin/images/icon-4.png" alt="logo">
+            <span class="p-1.8 my-burger"> Gestion des disponibilités</span>
+          </a>
+        </li>
+        <li>
+          <a href="/admin/pages/appointementsManager.html" class="nav-link mt-3">
+            <img src="/admin/images/icon-5.png" alt="logo">
+            <span class="p-1.8 my-burger">Gestion des rendez-vous</span>
+          </a>
+        </li>
+      </ul>
+      <hr>
+>>>>>>> d262c96aa6eabec33fa4fdd94ecf88016f4d278a
 
             <div class="profil-section">
                 <a id="profileToggle" class="d-flex align-items-center link-dark text-decoration-none " href="">
@@ -70,15 +112,15 @@
     </header>
 
   <section id="section" class="d-flex section">
-    <div id="formdoctor" style="left: 22%; top: 10%; display: none; pointer-events: auto; z-index: 101;"
-      class="border align-self-center rounded-4 shadow-lg p-3 w-50 position-absolute bg-white">
+    <div id="formdoctor" style="left: 22%; top: 10%; display: none; pointer-events: auto; z-index: 102;"
+      class="border align-self-center rounded-4 shadow-lg p-3 w-50 position-absolute bg-white formi">
       <p class="fs-3 text-primary text-center">formulaire ajouter un médecin</p>
       <form>
         <div class="d-flex w-100 gap-4  flex-column">
-          <div class="d-flex justify-content-evenly">
-            <img style="width: 100px; height: 100px;" class="border rounded-circle" alt="image"
+          <div class="d-flex justify-content-evenly ">
+            <img style="width: 100px; height: 100px;" class="border rounded-circle imgs" alt="image"
               src="/admin/images/mdi_doctor.png">
-            <div>
+            <div class="conti">
               <p class="fw-bold">Veuillez sélectionner la disponibilité du médecin</p>
               <div id="diponiblebtn" style="width: 200px; height: 20px; cursor: pointer;"
                 class="border border-dark rounded-4 position-relative d-flex align-items-center overflow-hidden">
@@ -91,9 +133,9 @@
               </div>
             </div>
           </div>
-          <div class="d-flex flex-column justify-content-center gap-4">
-            <label class="btn btn-primary" for="photoInput">Envoyer une photo</label>
-            <input type="file" id="photoInput" name="photo" accept="image/*" hidden>
+          <div class="d-flex flex-column justify-content-center">
+            <label class="fw-bold text-nowrap" >Envoyer une photo URL</label>
+            <input type="text" id="photoInput" style="outline: none; height: 40px;" class="w-100 rounded-3 border border-dark-subtle">
           </div>
         </div>
         <div style="height: 300px;" class="d-flex flex-column justify-content-evenly">
@@ -116,11 +158,12 @@
           </div>
         </div>
         <button id="submitBtn" class="btn btn-primary">submit</button>
+        <button id="cancel" class="btn btn-secondary">cancel</button>
       </form>
     </div>
-    <div id="cardsContainer" style="width: 100%;" class="d-flex justify-content-evenly flex-wrap my-5 gap-1 ">
+    <div id="cardsContainer" style="width: 100%;" class="d-flex justify-content-evenly flex-wrap my-3 gap-1 ">
     </div>
-    <div id="doctorSideBar" style=" width: 330px; height: 100%; position: fixed; right: 0; box-shadow: 4px 4px 15px;" class="bg-body-tertiary">
+    <div id="doctorSideBar" style=" width: 330px; height: 100%; position: fixed; right: 0; box-shadow: 4px 4px 15px; z-index: 101;" class="bg-body-tertiary">
       <h1 style="color: #1F2394;" class="text-center py-2 fs-2">Liste des médecins</h1>
       <div class="d-flex flex-column gap-4 w-100 align-items-center my-4">
         <form style="width: 90%; height: 40px; border-radius: 10px;"

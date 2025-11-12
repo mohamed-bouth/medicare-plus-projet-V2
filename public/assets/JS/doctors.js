@@ -1,17 +1,33 @@
+let doctors = JSON.parse(localStorage.getItem("doctors")) || []
+
+let speciality = JSON.parse(localStorage.getItem("speciality"))
+console.log(speciality)
+
+loadedData = doctors
+
+console.log(loadedData)
+
 document.addEventListener('DOMContentLoaded', function () {
     initializeDoctorsPage();
     initializeSearch();
 });
 
 async function initializeDoctorsPage() {
-    await loadData();
+    // await loadData();
 
     if (!loadedData) {
         console.error("Impossible de charger les données");
         return;
     }
 
-    const specialtyFilter = document.getElementById('specialtyFilter');
+    const specialtyFilter = document.getElementById("specialtyFilter");
+
+    speciality.forEach(element => {
+        const optionfilter = document.createElement("option");
+        optionfilter.textContent = element.name;
+        specialtyFilter.appendChild(optionfilter);
+    });
+
     const doctorsList = document.getElementById('doctorsList');
 
     if (!doctorsList) return;
@@ -30,7 +46,7 @@ async function initializeDoctorsPage() {
 }
 
 function renderDoctors() {
-
+    console.log(loadedData)
     if (!loadedData) return;
 
     const doctorsList = document.getElementById('doctorsList');
@@ -46,8 +62,8 @@ function renderDoctors() {
     doctorsList.innerHTML = '';
 
     filteredDoctors.forEach(doctor => {
-        const isFavorite = state.favoriteDoctors.includes(doctor.id);
-        const availabilityBadge = doctor.available ?
+        const isFavorite = sat.favoriteDoctors.includes(doctor.id);
+        const availabilityBadge = doctor.diponible ?
             '<span class="badge" style="background-color: #10b981; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 500;">Disponible</span>' :
             '<span class="badge" style="background-color: #ef4444; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 500;">Indisponible</span>';
 
@@ -56,7 +72,7 @@ function renderDoctors() {
         doctorCard.innerHTML = `
             <div class="card doctor-card h-100">
                 <div class="position-relative">
-                    <img src="${doctor.image}" class="card-img-top" alt="${doctor.name}" style="width:120px; object-fit: cover;">
+                    <img src="${doctor.url}" class="card-img-top" alt="${doctor.name}" style="width:120px; object-fit: cover;">
                     <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${doctor.id}">
                         <i class="bi ${isFavorite ? 'bi-heart-fill' : 'bi-heart'}"></i>
                     </button>

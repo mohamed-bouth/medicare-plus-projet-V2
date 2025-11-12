@@ -9,17 +9,18 @@
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="/admin/css/speciality.css">
     <link rel="stylesheet" href="/admin/css/style.css">
+    <link rel="stylesheet" href="/admin/css/disponibilité.css">
     <style>
 
     </style>
 </head>
 
-<body class="bg-light">
-    <header>
+<body class="bg-light d-flex w-100 min-vh-100">
+  <header>
         <!-------- sidebar ------------>
 
-        <div class="d-flex flex-column flex-shrink-0 p-3  my-sidebar shadow p-3 mb-5 bg-body-tertiary rounded">
-            <a href="." class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
+        <div class="d-flex flex-column flex-shrink-0 p-3  my-sidebar shadow p-3 mb-5 bg-body-tertiary rounded vh-100">
+            <a href="/public/index.html" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
                 <img class="bi me-2 logo" src="/admin/images/icon.png" alt="Logo">
                 <span class="fs-4 name my-burger">MediCare+</span>
             </a>
@@ -69,10 +70,10 @@
                     <a href="/admin/login.html" class="dropdown-item">Se déconnecter</a>
                 </div>
             </div>
-        </div> 
+        </div>
     </header>
-
-  <div class="container my-5 d-flex flex-column justify-content-center align-items-center" style="width: 70%; margin-left: 20em;">
+    
+  <div class="container my-5 d-flex flex-column justify-content-center align-items-center">
     <div class="w-100  shadow p-4 rounded-3">
       <h1 class="text-primary text-center fs-1 mb-3">Gestion des disponibilités des médecins</h1>
       <p class="text-secondary text-center fs-5 mb-4">
@@ -83,9 +84,6 @@
       <div class="mb-4 text-center">
         <select id="selectMedcin" class="form-select w-50 mx-auto">
           <option value="" selected disabled hidden>Choisir un médecin</option>
-          <option value="med1">Dr. Ahmed Bouthandousste</option>
-          <option value="med2">Dr. Youssef</option>
-          <option value="med3">Dr. Hajar</option>
         </select>
       </div>
 
@@ -95,8 +93,6 @@
         <label class="form-check-label"><input type="checkbox" class="form-check-input me-2">Mercredi</label>
         <label class="form-check-label"><input type="checkbox" class="form-check-input me-2">Jeudi</label>
         <label class="form-check-label"><input type="checkbox" class="form-check-input me-2">Vendredi</label>
-        <label class="form-check-label"><input type="checkbox" class="form-check-input me-2">Samedi</label>
-        <label class="form-check-label"><input type="checkbox" class="form-check-input me-2">Dimanche</label>
       </div>
 
       <div class="text-center">
@@ -105,7 +101,6 @@
 
       <div class="bg-success-subtle text-success text-center mt-4 p-2 rounded-3 border border-success d-none"
         id="successMsg">
-        Disponibilités mises à jour
       </div>
     </div>
   </div>

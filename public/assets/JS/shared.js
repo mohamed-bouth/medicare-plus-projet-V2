@@ -13,7 +13,7 @@ async function loadData() {
     }
 }
 
-let state = {
+let sat = {
     theme: 'light',
     favoriteDoctors: [],
     appointments: [],
@@ -23,22 +23,22 @@ let state = {
 function loadState() {
     const savedState = localStorage.getItem('medicareState');
     if (savedState) {
-        state = JSON.parse(savedState);
+        sat = JSON.parse(savedState);
     }
 }
 
 function saveState() {
-    localStorage.setItem('medicareState', JSON.stringify(state));
+    localStorage.setItem('medicareState', JSON.stringsat);
 }
 
 function initializeTheme() {
     const themeToggle = document.getElementById('themeToggle');
     if (!themeToggle) return;
 
-    applyTheme(state.theme);
+    applyTheme(sat.theme);
     themeToggle.addEventListener('click', function () {
-        const newTheme = state.theme === 'light' ? 'dark' : 'light';
-        state.theme = newTheme;
+        const newTheme = sat.theme === 'light' ? 'dark' : 'light';
+        sat.theme = newTheme;
         applyTheme(newTheme);
         saveState();
     });

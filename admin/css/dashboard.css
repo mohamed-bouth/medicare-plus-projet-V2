@@ -7,6 +7,11 @@
     font-weight: 700;
 }
 
+.container-fluid{
+    width: 80%;
+    margin-left: 280px;
+}
+
 @media (max-width: 768px) {
     .stat-card h3 {
         font-size: 0.9rem;
@@ -17,4 +22,8 @@
     #specialty-stats div {
         font-size: 0.9rem;
     }
+    .container-fluid {
+        margin-left: 74px;
+    }
+    
 }

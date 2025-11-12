@@ -1,4 +1,4 @@
-// Éléments du DOM
+
 const cardsContainer = document.getElementById("cardsContainer");
 const nameinput = document.getElementById("nameinput");
 const specialtyInput = document.getElementById("specialtyinput");
@@ -243,104 +243,52 @@ function openEditForm(doctor) {
         diponiblefalse.style = "height: 18px; width: 198px; top: 0; left: 0";
         diponibletrue.style = "height: 18px; width: 198px; top: 0; left: 200px";
     }
-}
+    const table = document.createElement('table');
+    table.className = 'table table-hover table-striped';
 
-function initializeEventListeners() {
-    ajouterbtn.addEventListener("click", () => {
-        resetform();
-        transid = null;
+    table.innerHTML = `
+        <thead class="table-light">
+            <tr>
+                <th>Patient</th>
+                <th>Médecin</th>
+                <th>Date</th>
+                <th>Heure</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody id="appointmentsTableBody"></tbody>
+    `;
+
+    appointmentsList.appendChild(table);
+
+    const tbody = document.getElementById('appointmentsTableBody');
+    
+    allAppointments.slice(-10).reverse().forEach(app => {
+        const row = document.createElement('tr');
         
-        if (!ajoutestate) {
-            formdoctor.style.display = "block";
-            ajoutestate = true;
-        } else {
-            formdoctor.style.display = "none";
-            ajoutestate = false;
-        }
-    });
+        const statusColor = {
+            pending: 'warning',
+            accepted: 'success',
+            rejected: 'danger'
+        }[app.appointmentStatus] || 'secondary';
 
-    diponiblebtn.addEventListener("click", () => {
-        diponiblebtnFlage = !diponiblebtnFlage;
-        
-        if (diponiblebtnFlage) {
-            diponiblefalse.style = "height: 18px; width: 198px; top: 0; left: -200px;";
-            diponibletrue.style = "height: 18px; width: 198px; top: 0; left: 0";
-        } else {
-            diponiblefalse.style = "height: 18px; width: 198px; top: 0; left: 0";
-            diponibletrue.style = "height: 18px; width: 198px; top: 0; left: 200px";
-        }
-    });
-    submitBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        section.style.pointerEvents = "auto";
+        row.innerHTML = `
+            <td>${app.patientName}</td>
+            <td>${app.doctorName}</td>
+            <td>${new Date(app.date).toLocaleDateString('fr-FR')}</td>
+            <td>${app.time}</td>
+            <td><span class="badge bg-${statusColor}">${getStatusText(app.appointmentStatus)}</span></td>
+        `;
 
-        const nameValue = nameinput.value.trim();
-        const specialtyValue = specialtyInput.value;
-        const descriptionValue = descriptionInput.value.trim();
-
-        if (specialtyValue === "Choisissez une spécialisation" || !nameValue || !descriptionValue) {
-            alert("Veuillez remplir tous les champs");
-            return;
-        }
-
-        if (!transid) {
-            const doctor = {
-                id: Date.now().toString(),
-                name: nameValue,
-                specialty: specialtyValue,
-                diponible: diponiblebtnFlage,
-                description: descriptionValue,
-                image: "",
-                days: {
-                    Lundi: false,
-                    Mardi: false,
-                    Mercredi: false,
-                    Jeudi: false,
-                    Vendredi: false,
-                }
-            };
-            doctorsInformation.push(doctor);
-        } else {
-            const index = doctorsInformation.findIndex(doc => doc.id === transid);
-            if (index !== -1) {
-                doctorsInformation[index].name = nameValue;
-                doctorsInformation[index].specialty = specialtyValue;
-                doctorsInformation[index].description = descriptionValue;
-                doctorsInformation[index].diponible = diponiblebtnFlage;
-            }
-        }
-
-        localStorage.setItem("doctors", JSON.stringify(doctorsInformation));
-        resetform();
-        rendercard();
-        formdoctor.style.display = "none";
-        ajoutestate = false;
-        transid = null;
-    });
-
-    // Recherche
-    checheBar.addEventListener("input", () => {
-        const searchTerm = checheBar.value.toLowerCase();
-        filterDoctors(searchTerm, sidebarOption.value);
-    });
-
-    sidebarOption.addEventListener("change", () => {
-        const searchTerm = checheBar.value.toLowerCase();
-        filterDoctors(searchTerm, sidebarOption.value);
+        tbody.appendChild(row);
     });
 }
 
-function filterDoctors(searchTerm, specialty) {
-    cardsContainer.innerHTML = "";
-
-    let filteredDoctors = doctorsInformation.filter(doctor => {
-        const matchesSearch = !searchTerm || doctor.name.toLowerCase().includes(searchTerm);
-        const matchesSpecialty = specialty === "tout" || doctor.specialty === specialty;
-        return matchesSearch && matchesSpecialty;
-    });
-
-    filteredDoctors.forEach(doctor => {
-        const card = createDoctorCard(doctor);
-        cardsContainer.appendChild(card);
-    });
+function removeAllData(){
+    console.log("remove")
+    localStorage.removeItem('appointments');
+    location.reload()
 }
+
+displayAppointments()
+renderStatistique()

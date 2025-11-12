@@ -41,7 +41,29 @@
         .section {
             margin-left: 80px;
         }
+        .formi{
+            width: 75% !important;
+            left: 15% !important;
+        }
     }
+     @media (max-width: 480px){
+        .formi{
+            width: 90% !important;
+            left: 3% !important;
+        }
+        
+     }
+     @media (max-width: 365px) {
+        .imgs{
+            display: none;
+        }
+        .conti {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+     }
+     
 
     .logo {
         width: 40px;
@@ -95,4 +117,25 @@
     left: -9%;
 
 }
-    
+
+@media (max-width: 420px){
+    .card {
+    width: 250px !important;
+    height: 170px !important;
+    }
+    .des{
+        display: none;
+    }
+    .btncontainer {
+        margin-top: auto;
+        margin-bottom: 10px;
+    }
+    .btns{
+        padding-left: 35px !important;
+        padding-right: 35px !important;
+    }
+    .spicialty{
+        font-size: x-small;
+    }
+}
+
