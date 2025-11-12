@@ -7,7 +7,7 @@
   <title>doctor page</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="/admin/css/doctor.css">
+    <link rel="stylesheet" href="../css/doctor.css">
 </head>
 
 <body>
@@ -15,45 +15,45 @@
     <header>
         <!-------- sidebar ------------>
 
-        <div class="d-flex flex-column flex-shrink-0 p-3  my-sidebar shadow p-3 mb-5 bg-body-tertiary rounded">
-            <a href="." class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
-                <img class="bi me-2 logo" src="/admin/images/icon.png" alt="Logo">
-                <span class="fs-4 name my-burger">MediCare+</span>
-            </a>
-            <hr>
+    <div class="d-flex flex-column flex-shrink-0 p-3  my-sidebar shadow p-3 mb-5 bg-body-tertiary rounded">
+      <a href="" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
+        <img class="bi me-2 logo" src="/admin/images/icon.png" alt="Logo">
+        <span class="fs-4 name my-burger">MediCare+</span>
+      </a>
+      <hr>
 
-            <ul class="nav nav-pills flex-column mb-auto space">
-                <li class="nav-item">
-                <li>
-                    <a href="/admin/pages/dashboard.html" class="nav-link mt-4">
-                        <img src="/admin/images/homeicon.png" alt="">
-                        <span class="p-4 text-center fs-4 my-burger"> Dashboard</span></a>
-                </li>
-                <a href="/admin/pages/doctorsManager.html" class="nav-link mt-3">
-                    <img src="/admin/images/icon-2.png" alt="logo">
-                    <span class="p-1.8 my-burger"> Gestion des médecins</span>
-                </a>
-                </li>
-                <li>
-                    <a href="/admin/pages/specialityManager.html" class="nav-link mt-3">
-                        <img src="/admin/images/icon-3.png" alt="logo">
-                        <span class=" p-1.8 my-burger">Gestion des spécialités</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/pages/disponibilités.html" class="nav-link mt-3 ">
-                        <img src="/admin/images/icon-4.png" alt="logo">
-                        <span class="p-1.8 my-burger"> Gestion des disponibilités</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/admin/pages/appointementsManager.html" class="nav-link mt-3">
-                        <img src="/admin/images/icon-5.png" alt="logo">
-                        <span class="p-1.8 my-burger">Gestion des rendez-vous</span>
-                    </a>
-                </li>
-            </ul>
-            <hr>
+      <ul class="nav nav-pills flex-column mb-auto space">
+        <li class="nav-item">
+        <li>
+          <a href="../pages/dashboard.html" class="nav-link mt-4">
+            <img src="../images/homeicon.png" alt="">
+            <span class="p-4 text-center fs-4 my-burger"> Dashboard</span></a>
+        </li>
+        <a href="../pages/doctorsManager.html" class="nav-link mt-3">
+          <img src="../images/icon-2.png" alt="logo">
+          <span class="p-1.8 my-burger"> Gestion des médecins</span>
+        </a>
+        </li>
+        <li>
+          <a href="../pages/specialityManager.html" class="nav-link mt-3">
+            <img src="../images/icon-3.png" alt="logo">
+            <span class=" p-1.8 my-burger">Gestion des spécialités</span>
+          </a>
+        </li>
+        <li>
+          <a href="../pages/disponibilités.html" class="nav-link mt-3 ">
+            <img src="../images/icon-4.png" alt="logo">
+            <span class="p-1.8 my-burger"> Gestion des disponibilités</span>
+          </a>
+        </li>
+        <li>
+          <a href="../pages/appointementsManager.html" class="nav-link mt-3">
+            <img src="../images/icon-5.png" alt="logo">
+            <span class="p-1.8 my-burger">Gestion des rendez-vous</span>
+          </a>
+        </li>
+      </ul>
+      <hr>
 
             <div class="profil-section">
                 <a id="profileToggle" class="d-flex align-items-center link-dark text-decoration-none " href="">
@@ -129,7 +129,7 @@
           <input id="cherche" type="text" style="border-radius: 8px;"
             class="w-75 border-0 rounded-end-0 text-center fs-4" placeholder="Rechercher">
           <button style="border-radius: 8px;" class="w-25 border-0 rounded-start-0">
-            <img src="/admin/images/ri_search-line.png" alt="ch">
+            <img src="../images/ri_search-line.png" alt="ch">
           </button>
         </form>
         <select id="option2" style="width: 90%; height: 40px; border-radius: 10px; "
@@ -141,7 +141,7 @@
         <div style="width: 150px; height: 130px;" class="bg-white border border-dark-subtle rounded-4">
           <p class="w-100 text-center fs-5 my-2">Totale doctores</p>
           <div class="w-100 d-flex justify-content-center align-items-center gap-3">
-            <img src="/admin/images/Vector1.png" alt="emoji">
+            <img src="../images/Vector1.png" alt="emoji">
             <div>
               <p id="toutdoctor" class="fs-2 fw-semibold m-0">0</p>
               <p class="fs-5 m-0">doctor</p>
@@ -151,7 +151,7 @@
         <div style="width: 150px; height: 130px;" class="bg-white border border-dark-subtle rounded-4">
           <p class="w-100 text-center fs-6 my-2">doctores disponibles</p>
           <div class="w-100 d-flex justify-content-center align-items-center gap-3">
-            <img src="/admin/images/Vector.png" alt="emoji">
+            <img src="../images/Vector.png" alt="emoji">
             <div>
               <p id="toutdiponible" class="fs-2 fw-semibold m-0">0</p>
               <p class="fs-5 m-0">doctor</p>
@@ -163,7 +163,7 @@
         <div style="width: 150px; height: 130px;" class="bg-white border border-dark-subtle rounded-4">
           <p class="w-100 text-center fs-5 my-2"> spécialisations</p>
           <div class="w-100 d-flex justify-content-center align-items-center gap-3">
-            <img src="/admin/images/vaadin_specialist.png" alt="emoji">
+            <img src="../images/vaadin_specialist.png" alt="emoji">
             <div>
               <p id="toutspicale" class="fs-2 fw-semibold m-0">0</p>
               <p class="fs-5 m-0">speciale</p>
@@ -173,7 +173,7 @@
         <div style="width: 150px; height: 130px;" class="bg-white border border-dark-subtle rounded-4">
           <p class="w-100 text-center fs-5 my-2">les rondez vous</p>
           <div class="w-100 d-flex justify-content-center align-items-center gap-3">
-            <img src="/admin/images/lets-icons_date-fill.png" alt="emoji">
+            <img src="../images/lets-icons_date-fill.png" alt="emoji">
             <div>
               <p class="fs-2 fw-semibold m-0">0</p>
               <p class="fs-5 m-0">rondez</p>
@@ -188,7 +188,7 @@
             <p style="font-size: 15px;">Alerte : tout objet que vous créez ici est stocké dans le stockage local</p>
           </div>
           <div style="margin-left: auto;" class="d-flex flex-column gap-2 p-2">
-            <img src="/admin/images/mdi_alert.png" alt="alert">
+            <img src="../images/mdi_alert.png" alt="alert">
             <button id="ajouterbtn" style="background-color: #569AFF;"
               class="text-white border rounded-3 p-2">Ajouter</button>
           </div>
@@ -200,8 +200,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>
-  <script src="/admin/js/doctorsManger.js"></script>
-  <script src="/admin/js/specialiyManager.js"></script>
+  <script src="../js/doctorsManger.js"></script>
 </body>
 
 </html>
