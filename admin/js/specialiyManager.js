@@ -1,5 +1,7 @@
 // ---------------- PROFILE DROPDOWN ----------------
 
+let doctors = JSON.parse(localStorage.getItem("doctors")) || [];
+
 const profileToggle = document.getElementById("profileToggle");
 const dropdownMenu = document.getElementById("dropdownMenu");
 
@@ -39,11 +41,16 @@ const specialityForm = document.getElementById('specialityForm');
 const specialityTableBody = document.getElementById('specialityTableBody');
 
 let speciality = [];
-let specialityStorage = [];
-
-specialityStorage = localStorage.getItem("speciality");
+let specialityStorage = localStorage.getItem("speciality");
 if (specialityStorage) {
     speciality = JSON.parse(specialityStorage);
+}
+
+// ---------------- HELPER FUNCTION ----------------
+
+// تتحقق واش specialty مستعملة عند أي doctor
+function canDeleteOrEditSpeciality(name) {
+    return !doctors.some(doctor => doctor.specialty === name);
 }
 
 // ---------------- ADD SPECIALITY ----------------
@@ -56,10 +63,7 @@ specialityForm.addEventListener('submit', (e) => {
 
     if (!specialityNom) return alert("Veuillez entrer le nom de la spécialité.");
 
-    const newSpeciality = {
-        name: specialityNom,
-        description: description
-    };
+    const newSpeciality = { name: specialityNom, description: description };
 
     speciality.push(newSpeciality);
     localStorage.setItem("speciality", JSON.stringify(speciality));
@@ -72,9 +76,7 @@ specialityForm.addEventListener('submit', (e) => {
 
 function loadData() {
     specialityTableBody.innerHTML = "";
-    speciality.forEach(sp => {
-        addSpecialityToTable(sp);
-    });
+    speciality.forEach(sp => addSpecialityToTable(sp));
 }
 
 function addSpecialityToTable(sp) {
@@ -92,20 +94,29 @@ function addSpecialityToTable(sp) {
         </td>
     `;
 
-    // DELETE BUTTON
+    // ---------------- DELETE BUTTON ----------------
     newRow.querySelector('.deleteBtn').addEventListener('click', () => {
+        if (!canDeleteOrEditSpeciality(sp.name)) {
+            alert("⚠️ Cette spécialité est utilisée par un médecin, suppression impossible !");
+            return;
+        }
+
         newRow.remove();
         speciality = speciality.filter(item => item.name !== sp.name);
         localStorage.setItem("speciality", JSON.stringify(speciality));
     });
 
-    // EDIT BUTTON
+    // ---------------- EDIT BUTTON ----------------
     newRow.querySelector('.editBtn').addEventListener('click', () => {
+        if (!canDeleteOrEditSpeciality(sp.name)) {
+            alert("⚠️ Cette spécialité est utilisée par un médecin, modification impossible !");
+            return;
+        }
+
         openModal();
         document.getElementById('specialityNom').value = sp.name;
         document.getElementById('description').value = sp.description;
 
-        // Temporarily change the Add button to "Modifier"
         addBtn.textContent = "Modifier";
         addBtn.onclick = (event) => {
             event.preventDefault();
@@ -122,4 +133,5 @@ function addSpecialityToTable(sp) {
     specialityTableBody.appendChild(newRow);
 }
 
+// ---------------- INITIAL LOAD ----------------
 loadData();

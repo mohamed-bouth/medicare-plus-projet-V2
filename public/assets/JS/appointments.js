@@ -138,6 +138,19 @@ function addAppointment() {
     const appointmentReason = document.getElementById('appointmentReason').value;
 
     const doctor = doctorsData.find(d => parseInt(d.id) === appointmentDoctor);
+    if (!doctor) {
+        alert("⚠️ الطبيب غير موجود!");
+        return;
+    }
+
+    const dateObj = new Date(appointmentDate);
+    const daysMap = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+    const dayName = daysMap[dateObj.getDay()];
+
+    if (doctor.days && doctor.days[dayName] === false) {
+        alert(`${doctor.name} ne pas disponible a ${dayName}`);
+        return;
+    }
 
     const newAppointment = {
         id: Date.now(),
@@ -160,6 +173,9 @@ function addAppointment() {
     document.querySelectorAll('.is-valid').forEach(field => {
         field.classList.remove('is-valid');
     });
+
+    alert(` Rendez-vous confirmé avec le Dr ${doctor.name} le ${dayName}.`);
+
 }
 
 
