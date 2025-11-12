@@ -27,8 +27,39 @@ doctors.forEach(element => {
     const option = document.createElement("option")
     selectMedcin.appendChild(option)
     option.textContent = element.name
+    option.value = element.id
+});
+ 
+selectMedcin.addEventListener("change", function () {
+  let selectedId = parseInt(selectMedcin.value);
+  let doctor = doctors.find(d => d.id === selectedId);
+
+  if (!doctor) return;
+
+  // mettre à jour les checkboxes selon les jours du médecin
+  checkboxes.forEach(ch => {
+    let jour = ch.parentElement.textContent.trim();
+    ch.checked = doctor.days[jour] === true;
+  });
 });
 
+// Quand on coche / décoche un jour
+checkboxes.forEach(checkbox => {
+  checkbox.addEventListener("change", function () {
+    let selectedId = parseInt(selectMedcin.value);
+    let doctor = doctors.find(d => d.id === selectedId);
+    if (!doctor) return; // aucun médecin sélectionné
+
+    let jour = checkbox.parentElement.textContent.trim();
+    // mettre à jour la valeur true/false
+    doctor.days[jour] = checkbox.checked;
+
+    // sauvegarder le changement dans localStorage
+    localStorage.setItem("doctors", JSON.stringify(doctors));
+
+    console.log(`→ ${doctor.name} : ${jour} = ${doctor.days[jour]}`);
+  });
+});
 
 btn.addEventListener("click", function () {
     let medcin = selectMedcin.value;
@@ -52,12 +83,6 @@ btn.addEventListener("click", function () {
         successMsg.classList.remove("bg-success-subtle");
         successMsg.classList.add("bg-warning");
     } else {
-        doctors.forEach((doctor)=> {
-            if(doctor.name === medcin) {
-                doctor.jour = jourSelectionnes;
-            }
-            localStorage.setItem("doctors", JSON.stringify(doctors));
-        })
         successMsg.textContent = "Disponibilités mises à jour"
         successMsg.classList.remove("d-none");
         successMsg.classList.remove("bg-warning")
