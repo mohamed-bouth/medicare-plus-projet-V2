@@ -1,57 +1,52 @@
-const toggle = document.getElementById("profileToggle");
+// ---------------- PROFILE DROPDOWN ----------------
+
+const profileToggle = document.getElementById("profileToggle");
 const dropdownMenu = document.getElementById("dropdownMenu");
-
-dropdownMenu.classList.toggle('show');
-
-
-
 
 function toggleMenu() {
     dropdownMenu.classList.toggle('show');
 }
 
-profileToggle.addEventListener('click', function (event) {
+profileToggle.addEventListener('click', (event) => {
     event.preventDefault();
     toggleMenu();
 });
 
-
-
+// ---------------- MODAL MANAGEMENT ----------------
 
 const openModalBtn = document.getElementById('openModalBtn');
 const addSpecialityModal = document.getElementById('addSpecialityModal');
-const customModal = document.querySelector('custom-modal');
 const closeModalBtn = document.getElementById('closeModalBtn');
-const localstoragebtn = document.querySelector(".localstorage")
+const cancelBtn = document.getElementById('cancelBtn');
+const addBtn = document.getElementById('ajoute');
 
-
-function addSpeciality() {
-    openModalBtn.addEventListener('click', () => {
-        addSpecialityModal.style.display = 'flex';
-    })
-    closeModalBtn.addEventListener('click', () => {
-       closeModal()
-    })
+function openModal() {
+    addSpecialityModal.style.display = 'flex';
 }
 
-function addArrayToLocalStorage(){
-    localStorage.setItem("docteur", JSON.stringify(array));
+function closeModal() {
+    addSpecialityModal.style.display = 'none';
+    specialityForm.reset();
 }
 
-openModalBtn.addEventListener('click', function (event) {
-    event.preventDefault();
-    addSpeciality();
-})
+openModalBtn.addEventListener('click', () => openModal());
+closeModalBtn.addEventListener('click', () => closeModal());
+cancelBtn.addEventListener('click', () => closeModal());
+
+// ---------------- LOCAL STORAGE & VARIABLES ----------------
 
 const specialityForm = document.getElementById('specialityForm');
 const specialityTableBody = document.getElementById('specialityTableBody');
-let speciality = []
-let = specialityStorage = []
 
- specialityStorage = localStorage.getItem("speciality");
+let speciality = [];
+let specialityStorage = [];
+
+specialityStorage = localStorage.getItem("speciality");
 if (specialityStorage) {
     speciality = JSON.parse(specialityStorage);
 }
+
+// ---------------- ADD SPECIALITY ----------------
 
 specialityForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -59,7 +54,7 @@ specialityForm.addEventListener('submit', (e) => {
     const specialityNom = document.getElementById('specialityNom').value.trim();
     const description = document.getElementById('description').value.trim();
 
-
+    if (!specialityNom) return alert("Veuillez entrer le nom de la spécialité.");
 
     const newSpeciality = {
         name: specialityNom,
@@ -69,55 +64,62 @@ specialityForm.addEventListener('submit', (e) => {
     speciality.push(newSpeciality);
     localStorage.setItem("speciality", JSON.stringify(speciality));
 
-
-    const newRow = document.createElement('tr');
-    newRow.innerHTML = ` 
-        <td>${newSpeciality.name}</td>
-        <td>${newSpeciality.description}</td>
-        <td class="d-flex flex-row">
-            <button class="btn btn-sm">
-                <img src="/admin/images/delete-icon.png" style="width: 20px;" alt="">
-            </button>
-            <button class="btn btn-sm">
-                <img src="/admin/images/pencil-icon.png" style="width:20px;" alt="">
-            </button>
-        </td>
-    `;
-    specialityTableBody.appendChild(newRow);
-
-    specialityForm.reset();
-
+    addSpecialityToTable(newSpeciality);
     closeModal();
 });
 
-function closeModal(){
- addSpecialityModal.style.display = 'none';
-}
+// ---------------- DISPLAY DATA ----------------
 
 function loadData() {
-    speciality.forEach((sp) => {
-
-        const newRow = document.createElement('tr');
-        newRow.innerHTML = ` 
-  <td>${sp.name}</td>
-  <td>${sp.description} </td>
- 
-                            <td class="d-flex flex-row">
-                                <button class="btn btn-sm">
-                                    <img src="/admin/images/delete-icon.png" style="width: 20px;" alt="">
-                                </button>
-                                <button class="btn btn-sm">
-                                    <img src="/admin/images/pencil-icon.png" style="width:20px;" alt="">
-                                </button>
-                            </td>`;
-
-
-        specialityTableBody.appendChild(newRow);
-
-
-
-    })
-
-
+    specialityTableBody.innerHTML = "";
+    speciality.forEach(sp => {
+        addSpecialityToTable(sp);
+    });
 }
-loadData()
+
+function addSpecialityToTable(sp) {
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+        <td>${sp.name}</td>
+        <td>${sp.description}</td>
+        <td class="d-flex flex-row justify-content-center gap-2">
+            <button class="btn btn-sm deleteBtn">
+                <img src="/admin/images/delete-icon.png" style="width:20px;" alt="Supprimer">
+            </button>
+            <button class="btn btn-sm editBtn">
+                <img src="/admin/images/pencil-icon.png" style="width:20px;" alt="Modifier">
+            </button>
+        </td>
+    `;
+
+    // DELETE BUTTON
+    newRow.querySelector('.deleteBtn').addEventListener('click', () => {
+        newRow.remove();
+        speciality = speciality.filter(item => item.name !== sp.name);
+        localStorage.setItem("speciality", JSON.stringify(speciality));
+    });
+
+    // EDIT BUTTON
+    newRow.querySelector('.editBtn').addEventListener('click', () => {
+        openModal();
+        document.getElementById('specialityNom').value = sp.name;
+        document.getElementById('description').value = sp.description;
+
+        // Temporarily change the Add button to "Modifier"
+        addBtn.textContent = "Modifier";
+        addBtn.onclick = (event) => {
+            event.preventDefault();
+            sp.name = document.getElementById('specialityNom').value.trim();
+            sp.description = document.getElementById('description').value.trim();
+            localStorage.setItem("speciality", JSON.stringify(speciality));
+            loadData();
+            addBtn.textContent = "Ajouter";
+            addBtn.onclick = null;
+            closeModal();
+        };
+    });
+
+    specialityTableBody.appendChild(newRow);
+}
+
+loadData();
