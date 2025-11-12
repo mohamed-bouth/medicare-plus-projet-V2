@@ -55,9 +55,9 @@
             <hr>
 
             <div class="profil-section">
-                <a id="profileToggle" class="d-flex align-items-center link-dark text-decoration-none " href="">
+                <a id="profileToggle" class="d-flex align-items-center link-dark text-decoration-none" href="">
                     <img class="rounded-circle me-2" src="/admin/images/profil.png" alt="profil">
-                    <strong class="my-burger">secretaire</strong>
+                    <strong class="my-burger">Secrétaire</strong>
                     <span class="flesh">&#9662;</span>
                 </a>
                 <!-- hidden menu -->
@@ -70,13 +70,11 @@
 
     <div class="container-fluid main-content">
         <div class="dashboard-container">
-            <!-- Titre -->
+
             <h1 class="text-center mb-5 fw-bold text-primary">
                 <i class="fas fa-calendar-check me-2"></i>
                 Gestion des Rendez-vous
             </h1>
-
-            <!-- Statistiques -->
             <div class="row g-3 mb-4 text-center">
                 <div class="col-6 col-md-3">
                     <div class="stat-card bg-primary">
@@ -103,8 +101,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Filtres -->
             <div class="row g-3 mb-4">
                 <div class="col-md-4">
                     <div class="input-group">
@@ -128,13 +124,17 @@
                     </select>
                 </div>
             </div>
-
-            <!-- Liste des rendez-vous -->
-            <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="mb-4">
+                <h4 class="fw-semibold mb-3 text-secondary">
+                    <i class="fas fa-list me-2 text-primary"></i>
+                    Rendez-vous (<span id="appointmentCount">0</span>)
+                </h4>
+                <div id="appointmentsList">
+                    <div class="alert alert-info text-center">
+                        <i class="fas fa-info-circle me-1"></i> Aucun rendez-vous enregistré.
+                    </div>
+                </div>
             </div>
-
-            <div id="appointmentsList"></div>
-
             <div class="d-flex justify-content-end">
                 <button class="btn btn-danger" onclick="removeAllData()">
                     <i class="fas fa-trash-alt me-2"></i>Effacer tout
