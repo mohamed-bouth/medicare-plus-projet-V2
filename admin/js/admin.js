@@ -85,7 +85,7 @@ async function loginAuthentification() {
         }
         createSession(username);
         checkSession();
-        window.location.href = '/admin/pages/dashboard.html';
+        window.location.href = 'admin/pages/dashboard.html';
     });
 }
 loginAuthentification();
