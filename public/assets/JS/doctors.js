@@ -12,13 +12,8 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeSearch();
 });
 
-async function initializeDoctorsPage() {
-    await loadData();
+ function initializeDoctorsPage() {
 
-    if (!loadedData) {
-        console.error("Impossible de charger les données");
-        return;
-    }
 
     const specialtyFilter = document.getElementById("specialtyFilter");
 
