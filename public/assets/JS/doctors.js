@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 async function initializeDoctorsPage() {
-    // await loadData();
+    const loadedData = await loadData(); 
 
     if (!loadedData) {
         console.error("Impossible de charger les données");
