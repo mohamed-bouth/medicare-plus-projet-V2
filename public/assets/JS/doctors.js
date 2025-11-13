@@ -15,11 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
 async function initializeDoctorsPage() {
     // await loadData(); 
 
-    // if (!loadedData) {
-    //     console.error("Impossible de charger les données");
-    //     return;
-    // }
-
     const specialtyFilter = document.getElementById("specialtyFilter");
 
     speciality.forEach(element => {
