@@ -123,4 +123,4 @@ Font Awesome Icônes et symboles
 
 -Le projet peut facilement évoluer vers une version connectée à une API REST.
 
--Chaque fonctionnalité est codée sans dépendances externes, pour renforcer la maîtrise du JavaScript natif.
+-Chaque fonctionnalité est codée sans dépendances externes, pour renforcer la maîtrise du JavaScript natif..
