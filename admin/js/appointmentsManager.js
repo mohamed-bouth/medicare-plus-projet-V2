@@ -99,14 +99,15 @@ function renderAppointments() {
     const tbody = document.createElement('tbody');
 
     appointments.forEach(app => {
+        console.log(app)
         const tr = document.createElement('tr');
 
         tr.innerHTML = `
             <td>${app.patientName}</td>
             <td>${app.patientEmail}</td>
-            <td>${app.appointmentDoctor}</td>
-            <td>${new Date(app.appointmentDate).toLocaleDateString('fr-FR')}</td>
-            <td>${app.appointmentTime}</td>
+            <td>${app.doctorName}</td>
+            <td>${new Date(app.date).toLocaleDateString('fr-FR')}</td>
+            <td>${app.time}</td>
             <td><span class="badge bg-${statusColor(app.appointmentStatus)}">${statusText(app.appointmentStatus)}</span></td>
         `;
 
