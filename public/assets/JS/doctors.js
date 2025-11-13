@@ -73,7 +73,7 @@ function renderDoctors() {
                 <div class="card-body">
                     <h5 class="card-title">${doctor.name}</h5>
                     <p class="card-text">
-                        <span class="badge bg-primary">${getSpecialtyName(doctor.specialty)}</span>
+                        <span class="badge bg-primary">${doctor.specialty}</span>
                         ${availabilityBadge}
                     </p>
                     <p class="card-text">${doctor.description}</p>
