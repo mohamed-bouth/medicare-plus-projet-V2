@@ -22,14 +22,14 @@ let sat = {
 
 function loadState() {
     const savedState = localStorage.getItem('medicareState');
+   
     if (savedState) {
         sat = JSON.parse(savedState);
     }
 }
 
-function saveState() {
-    localStorage.setItem('medicareState', JSON.stringsat);
-}
+
+
 
 function initializeTheme() {
     const themeToggle = document.getElementById('themeToggle');
@@ -38,10 +38,14 @@ function initializeTheme() {
     applyTheme(sat.theme);
     themeToggle.addEventListener('click', function () {
         const newTheme = sat.theme === 'light' ? 'dark' : 'light';
+     
         sat.theme = newTheme;
         applyTheme(newTheme);
-        saveState();
+        
+        localStorage.setItem('medicareState', JSON.stringify(sat));
+        
     });
+
 }
 
 function applyTheme(theme) {
