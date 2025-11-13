@@ -69,9 +69,6 @@ function renderDoctors() {
             <div class="card doctor-card h-100">
                 <div class="position-relative">
                     <img src="${doctor.url}" class="card-img-top" alt="${doctor.name}" style="width:120px; object-fit: cover;">
-                    <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-id="${doctor.id}">
-                        <i class="bi ${isFavorite ? 'bi-heart-fill' : 'bi-heart'}"></i>
-                    </button>
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">${doctor.name}</h5>
