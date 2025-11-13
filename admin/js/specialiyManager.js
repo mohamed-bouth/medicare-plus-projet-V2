@@ -46,10 +46,15 @@ if (specialityStorage) {
     speciality = JSON.parse(specialityStorage);
 }
 
+function isSpecialityPage() {
+    return window.location.pathname.includes("specialite.html");
+}
+
 // ---------------- ADD SPECIALITY ----------------
 
 specialityForm.addEventListener('submit', (e) => {
     e.preventDefault();
+
 
     const specialityNom = document.getElementById('specialityNom').value.trim();
     const description = document.getElementById('description').value.trim();
@@ -94,16 +99,37 @@ function addSpecialityToTable(sp) {
 
     // DELETE BUTTON
     newRow.querySelector('.deleteBtn').addEventListener('click', () => {
+
+        const doctors = JSON.parse(localStorage.getItem("doctors")) || [];
+        const isUsed = doctors.some(doc => doc.specialty === sp.name);
+
+        if (isUsed) {
+            alert(`Impossible de supprimer la spécialité "${sp.name}" car elle est déjà attribuée à un médecin.`);
+            return;
+        }
+
         newRow.remove();
         speciality = speciality.filter(item => item.name !== sp.name);
         localStorage.setItem("speciality", JSON.stringify(speciality));
+        alert(`✅ La spécialité "${sp.name}" a été supprimée avec succès.`);
     });
 
     // EDIT BUTTON
     newRow.querySelector('.editBtn').addEventListener('click', () => {
+
+        const doctors = JSON.parse(localStorage.getItem("doctors")) || [];
+        const isUsed = doctors.some(doc => doc.specialty === sp.name);
+
+        if (isUsed) {
+            alert(`Impossible de modifier la spécialité "${sp.name}" car elle est déjà attribuée à un médecin.`);
+            return; // stop editing
+        }
+
         openModal();
         document.getElementById('specialityNom').value = sp.name;
         document.getElementById('description').value = sp.description;
+
+
 
         // Temporarily change the Add button to "Modifier"
         addBtn.textContent = "Modifier";
@@ -113,13 +139,29 @@ function addSpecialityToTable(sp) {
             sp.description = document.getElementById('description').value.trim();
             localStorage.setItem("speciality", JSON.stringify(speciality));
             loadData();
+
+            alert(` La spécialité "${sp.name}" a été modifiée avec succès.`);
             addBtn.textContent = "Ajouter";
             addBtn.onclick = null;
             closeModal();
         };
+
     });
 
     specialityTableBody.appendChild(newRow);
 }
+// ===========================================
+
+const totalS = JSON.parse(localStorage.getItem("speciality")) || 0 ;
+const totalSpeaciality = totalS.length;
+console.log(totalSpeaciality)
+
+document.getElementById("totalS").textContent = totalSpeaciality;
+
+const totalD = JSON.parse(localStorage.getItem("doctors")) || 0;
+const totalDoctor = totalD.length;
+document.getElementById("totalD").textContent = totalDoctor;
+
+
 
 loadData();
