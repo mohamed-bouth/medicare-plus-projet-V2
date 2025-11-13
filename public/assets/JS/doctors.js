@@ -59,7 +59,6 @@ function renderDoctors() {
     doctorsList.innerHTML = '';
 
     filteredDoctors.forEach(doctor => {
-        const isFavorite = sat.favoriteDoctors.includes(doctor.id);
         const availabilityBadge = doctor.diponible ?
             '<span class="badge" style="background-color: #10b981; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 500;">Disponible</span>' :
             '<span class="badge" style="background-color: #ef4444; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 500;">Indisponible</span>';
