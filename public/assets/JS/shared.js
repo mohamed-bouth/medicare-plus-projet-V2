@@ -1,17 +1,5 @@
 let loadedData = null;
-async function loadData() {
-    try {
-        const response = await fetch('admin/data/doctors.json');
 
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const data = await response.json();
-        loadedData = Array.isArray(data) ? data : [];
-
-    }
-    catch (error) {
-        console.error("Erreur!:", error);
-    }
-}
 
 let sat = {
     theme: 'light',
