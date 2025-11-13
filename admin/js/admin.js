@@ -1,7 +1,7 @@
 let loadedData = null;
 async function loadData() {
     try {
-        const response = await fetch('/admin/data/admin.json');
+        const response = await fetch('admin/data/admin.json');
         loadedData = await response.json();
     } catch (error) {
         console.error("Error loiding json data.", error);
