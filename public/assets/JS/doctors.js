@@ -3,6 +3,8 @@ let doctors = JSON.parse(localStorage.getItem("doctors")) || []
 let speciality = JSON.parse(localStorage.getItem("speciality"))
 console.log(speciality)
 
+let loadedData = [];
+
 loadedData = doctors
 
 console.log(loadedData)
