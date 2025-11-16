@@ -1,217 +1,167 @@
-const toggle = document.getElementById("profileToggle");
+// ---------------- PROFILE DROPDOWN ----------------
+
+const profileToggle = document.getElementById("profileToggle");
 const dropdownMenu = document.getElementById("dropdownMenu");
+
+function toggleMenu() {
+    dropdownMenu.classList.toggle('show');
+}
+
+profileToggle.addEventListener('click', (event) => {
+    event.preventDefault();
+    toggleMenu();
+});
+
+// ---------------- MODAL MANAGEMENT ----------------
+
 const openModalBtn = document.getElementById('openModalBtn');
 const addSpecialityModal = document.getElementById('addSpecialityModal');
 const closeModalBtn = document.getElementById('closeModalBtn');
 const cancelBtn = document.getElementById('cancelBtn');
+const addBtn = document.getElementById('ajoute');
+
+function openModal() {
+    addSpecialityModal.style.display = 'flex';
+}
+
+function closeModal() {
+    addSpecialityModal.style.display = 'none';
+    specialityForm.reset();
+}
+
+openModalBtn.addEventListener('click', () => openModal());
+closeModalBtn.addEventListener('click', () => closeModal());
+cancelBtn.addEventListener('click', () => closeModal());
+
+// ---------------- LOCAL STORAGE & VARIABLES ----------------
+
 const specialityForm = document.getElementById('specialityForm');
 const specialityTableBody = document.getElementById('specialityTableBody');
 
 let speciality = [];
+let specialityStorage = [];
 
-initializePage();
-
-function initializePage() {
-    loadSpecialities();
-    initializeDropdown();
-    
-    if (openModalBtn && addSpecialityModal) {
-        initializeModal();
-    }
-    
-    if (specialityTableBody) {
-        loadData();
-    }
+specialityStorage = localStorage.getItem("speciality");
+if (specialityStorage) {
+    speciality = JSON.parse(specialityStorage);
 }
 
-function initializeDropdown() {
-    if (toggle && dropdownMenu) {
-        toggle.addEventListener('click', function (event) {
-            event.preventDefault();
-            dropdownMenu.classList.toggle('show');
-        });
-    }
+function isSpecialityPage() {
+    return window.location.pathname.includes("specialite.html");
 }
 
-function loadSpecialities() {
-    const specialityStorage = localStorage.getItem("speciality");
-    if (specialityStorage) {
-        try {
-            speciality = JSON.parse(specialityStorage);
-        } catch (error) {
-            console.error("Erreur lors du chargement des spécialités:", error);
-            speciality = [];
-        }
-    }
-}
+// ---------------- ADD SPECIALITY ----------------
 
-function initializeModal() {
-    if (openModalBtn) {
-        openModalBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            openModal();
-        });
-    }
-
-    if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', () => {
-            closeModal();
-        });
-    }
-
-    if (cancelBtn) {
-        cancelBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            closeModal();
-        });
-    }
-
-    if (addSpecialityModal) {
-        addSpecialityModal.addEventListener('click', (e) => {
-            if (e.target === addSpecialityModal) {
-                closeModal();
-            }
-        });
-    }
-    if (specialityForm) {
-        specialityForm.addEventListener('submit', handleFormSubmit);
-    }
-}
-
-function handleFormSubmit(e) {
+specialityForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const specialityNomInput = document.getElementById('specialityNom');
-    const descriptionInput = document.getElementById('description');
 
-    if (!specialityNomInput || !descriptionInput) return;
+    const specialityNom = document.getElementById('specialityNom').value.trim();
+    const description = document.getElementById('description').value.trim();
 
-    const specialityNom = specialityNomInput.value.trim();
-    const description = descriptionInput.value.trim();
-
-    if (!specialityNom) {
-        alert("Veuillez entrer un nom de spécialité");
-        return;
-    }
-    const exists = speciality.some(sp => sp.name.toLowerCase() === specialityNom.toLowerCase());
-    if (exists) {
-        alert("Cette spécialité existe déjà");
-        return;
-    }
+    if (!specialityNom) return alert("Veuillez entrer le nom de la spécialité.");
 
     const newSpeciality = {
-        id: Date.now().toString(),
         name: specialityNom,
-        description: description || "Aucune description"
+        description: description
     };
 
     speciality.push(newSpeciality);
     localStorage.setItem("speciality", JSON.stringify(speciality));
 
-    if (specialityTableBody) {
-        addSpecialityToTable(newSpeciality);
-    }
-    
-    specialityForm.reset();
+    addSpecialityToTable(newSpeciality);
     closeModal();
-    
-    alert("Spécialité ajoutée avec succès !");
-}
+});
 
-function openModal() {
-    if (addSpecialityModal) {
-        addSpecialityModal.style.display = 'flex';
-    }
-}
-
-function closeModal() {
-    if (addSpecialityModal) {
-        addSpecialityModal.style.display = 'none';
-    }
-    if (specialityForm) {
-        specialityForm.reset();
-    }
-}
-
-function addSpecialityToTable(sp) {
-    if (!specialityTableBody) return;
-
-    const newRow = document.createElement('tr');
-    newRow.setAttribute('data-id', sp.id);
-    newRow.innerHTML = ` 
-        <td>${sp.name}</td>
-        <td>${sp.description}</td>
-        <td class="d-flex flex-row justify-content-center gap-2">
-            <button class="btn btn-sm btn-danger delete-btn" onclick="deleteSpeciality('${sp.id}')">
-                <i class="fas fa-trash"></i>
-            </button>
-            <button class="btn btn-sm btn-primary edit-btn" onclick="editSpeciality('${sp.id}')">
-                <i class="fas fa-edit"></i>
-            </button>
-        </td>
-    `;
-    specialityTableBody.appendChild(newRow);
-}
+// ---------------- DISPLAY DATA ----------------
 
 function loadData() {
-    if (!specialityTableBody) return;
-
-    specialityTableBody.innerHTML = '';
-
-    if (speciality.length === 0) {
-        specialityTableBody.innerHTML = `
-            <tr>
-                <td colspan="3" class="text-center text-muted">
-                    Aucune spécialité enregistrée
-                </td>
-            </tr>
-        `;
-        return;
-    }
-
-    speciality.forEach((sp) => {
+    specialityTableBody.innerHTML = "";
+    speciality.forEach(sp => {
         addSpecialityToTable(sp);
     });
 }
 
-function deleteSpeciality(id) {
-    if (confirm("Êtes-vous sûr de vouloir supprimer cette spécialité ?")) {
-        speciality = speciality.filter(sp => sp.id !== id);
+function addSpecialityToTable(sp) {
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+        <td>${sp.name}</td>
+        <td>${sp.description}</td>
+        <td class="d-flex flex-row justify-content-center gap-2">
+            <button class="btn btn-sm deleteBtn">
+                <img src="/admin/images/delete-icon.png" style="width:20px;" alt="Supprimer">
+            </button>
+            <button class="btn btn-sm editBtn">
+                <img src="/admin/images/pencil-icon.png" style="width:20px;" alt="Modifier">
+            </button>
+        </td>
+    `;
+
+    // DELETE BUTTON
+    newRow.querySelector('.deleteBtn').addEventListener('click', () => {
+
+        const doctors = JSON.parse(localStorage.getItem("doctors")) || [];
+        const isUsed = doctors.some(doc => doc.specialty === sp.name);
+
+        if (isUsed) {
+            alert(`Impossible de supprimer la spécialité "${sp.name}" car elle est déjà attribuée à un médecin.`);
+            return;
+        }
+
+        newRow.remove();
+        speciality = speciality.filter(item => item.name !== sp.name);
         localStorage.setItem("speciality", JSON.stringify(speciality));
-        
-        const row = document.querySelector(`tr[data-id="${id}"]`);
-        if (row) {
-            row.remove();
+        alert(`✅ La spécialité "${sp.name}" a été supprimée avec succès.`);
+    });
+
+    // EDIT BUTTON
+    newRow.querySelector('.editBtn').addEventListener('click', () => {
+
+        const doctors = JSON.parse(localStorage.getItem("doctors")) || [];
+        const isUsed = doctors.some(doc => doc.specialty === sp.name);
+
+        if (isUsed) {
+            alert(`Impossible de modifier la spécialité "${sp.name}" car elle est déjà attribuée à un médecin.`);
+            return; // stop editing
         }
 
-        if (speciality.length === 0 && specialityTableBody) {
+        openModal();
+        document.getElementById('specialityNom').value = sp.name;
+        document.getElementById('description').value = sp.description;
+
+
+
+        // Temporarily change the Add button to "Modifier"
+        addBtn.textContent = "Modifier";
+        addBtn.onclick = (event) => {
+            event.preventDefault();
+            sp.name = document.getElementById('specialityNom').value.trim();
+            sp.description = document.getElementById('description').value.trim();
+            localStorage.setItem("speciality", JSON.stringify(speciality));
             loadData();
-        }
 
-        alert("Spécialité supprimée avec succès !");
-    }
+            alert(` La spécialité "${sp.name}" a été modifiée avec succès.`);
+            addBtn.textContent = "Ajouter";
+            addBtn.onclick = null;
+            closeModal();
+        };
+
+    });
+
+    specialityTableBody.appendChild(newRow);
 }
+// ===========================================
 
-function editSpeciality(id) {
-    const sp = speciality.find(s => s.id === id);
-    if (!sp) return;
+const totalS = JSON.parse(localStorage.getItem("speciality")) || 0 ;
+const totalSpeaciality = totalS.length;
+console.log(totalSpeaciality)
 
-    const newName = prompt("Nouveau nom de la spécialité:", sp.name);
-    if (!newName || newName.trim() === "") return;
+document.getElementById("totalS").textContent = totalSpeaciality;
 
-    const newDescription = prompt("Nouvelle description:", sp.description);
+const totalD = JSON.parse(localStorage.getItem("doctors")) || 0;
+const totalDoctor = totalD.length;
+document.getElementById("totalD").textContent = totalDoctor;
 
-    const index = speciality.findIndex(s => s.id === id);
-    if (index !== -1) {
-        speciality[index].name = newName.trim();
-        speciality[index].description = newDescription ? newDescription.trim() : sp.description;
-        
-        localStorage.setItem("speciality", JSON.stringify(speciality));
-        
-        if (specialityTableBody) {
-            loadData();
-        }
-        
-        alert("Spécialité modifiée avec succès !");
-    }
-}
+
+
+loadData();
