@@ -81,6 +81,7 @@ function loadData() {
         addSpecialityToTable(sp);
     });
 }
+loadData();
 
 function addSpecialityToTable(sp) {
     const newRow = document.createElement('tr');
@@ -89,10 +90,10 @@ function addSpecialityToTable(sp) {
         <td>${sp.description}</td>
         <td class="d-flex flex-row justify-content-center gap-2">
             <button class="btn btn-sm deleteBtn">
-                <img src="/admin/images/delete-icon.png" style="width:20px;" alt="Supprimer">
+                <img src="../images/delete-icon.png" style="width:20px;" alt="Supprimer">
             </button>
             <button class="btn btn-sm editBtn">
-                <img src="/admin/images/pencil-icon.png" style="width:20px;" alt="Modifier">
+                <img src="../images/pencil-icon.png" style="width:20px;" alt="Modifier">
             </button>
         </td>
     `;
